@@ -1,0 +1,77 @@
+[
+  {
+    "id": 1,
+    "name": "The Beatles",
+    "coordinates": {
+      "x": 3.5165,
+      "y": 6554.55
+    },
+    "creationDate": "Mar 18, 2024, 2:40:41 AM",
+    "numberOfParticipants": 4,
+    "establishmentDate": "1960-02-17",
+    "musicGenre": "POP",
+    "studio": {
+      "address": "Merseyside, England"
+    }
+  },
+  {
+    "id": 2,
+    "name": "AC/DC",
+    "coordinates": {
+      "x": 15.848,
+      "y": 15.894
+    },
+    "creationDate": "Mar 18, 2024, 2:40:41 AM",
+    "numberOfParticipants": 5,
+    "establishmentDate": "1973-11-06",
+    "musicGenre": "PSYCHEDELIC_ROCK",
+    "studio": {
+      "address": "Australia"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Hu",
+    "coordinates": {
+      "x": 135.5545,
+      "y": 15.54868
+    },
+    "creationDate": "Mar 18, 2024, 3:10:55 AM",
+    "numberOfParticipants": 4,
+    "establishmentDate": "2016-05-15",
+    "musicGenre": "PSYCHEDELIC_ROCK",
+    "studio": {
+      "address": "Mongolia"
+    }
+  },
+  {
+    "id": 4,
+    "name": "AC/DC",
+    "coordinates": {
+      "x": 15.848,
+      "y": 15.894
+    },
+    "creationDate": "Mar 18, 2024, 3:11:18 AM",
+    "numberOfParticipants": 5,
+    "establishmentDate": "1973-11-06",
+    "musicGenre": "PSYCHEDELIC_ROCK",
+    "studio": {
+      "address": "Australia"
+    }
+  },
+  {
+    "id": 5,
+    "name": "The Beatles",
+    "coordinates": {
+      "x": 3.5165,
+      "y": 6554.55
+    },
+    "creationDate": "Mar 18, 2024, 3:11:18 AM",
+    "numberOfParticipants": 4,
+    "establishmentDate": "1960-02-17",
+    "musicGenre": "POP",
+    "studio": {
+      "address": "Merseyside, England"
+    }
+  }
+]

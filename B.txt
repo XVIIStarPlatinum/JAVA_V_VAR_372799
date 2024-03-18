@@ -1,0 +1,9 @@
+add
+The Beatles
+3.5165
+6554.55
+4
+1960/02/17
+POP
+Merseyside, England
+execute_script A.txt

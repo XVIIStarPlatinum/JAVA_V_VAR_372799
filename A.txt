@@ -1,0 +1,10 @@
+info
+add
+AC/DC
+15.848
+15.894
+5
+1973/11/06
+PSYCHEDELIC_ROCK
+Australia
+execute_script B.txt
