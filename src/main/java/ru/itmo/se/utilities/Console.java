@@ -67,7 +67,6 @@ public class Console {
     }
     /**
      * This method is used to switch the console input to script mode (invoked with execute_script).
-     *
      * @param arg a script file.
      * @return 1 if there's an execution error with the script, <p>2 if the command Exit occurs.
      */
@@ -137,8 +136,8 @@ public class Console {
         if (CommandManager.commandMap.containsKey(command)) {
             if (command.equals("exit")) {
                 return (CommandManager.commandMap.get("exit").apply(arg)) ? 2 : 1;
-            } else if (command.equals("execute_script") || command.equals("exs")) {
-                return (CommandManager.commandMap.get("execute_script").apply(arg)) ? scriptMode(arg) : 1;
+            } else if (executeStringAliases.contains(command)) {
+                return (CommandManager.commandMap.get(command).apply(arg)) ? scriptMode(arg) : 1;
             } else {
                 return (CommandManager.commandMap.get(command).apply(arg)) ? 0 : 1;
             }
