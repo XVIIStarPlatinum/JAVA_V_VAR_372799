@@ -23,7 +23,7 @@ class FileContentValidator {
      */
     private static final String message1 = "It seems like the data was externally altered.";
     /**
-     * This field holds a message to be displayed if th element is being removed..
+     * This field holds a message to be displayed if th element is being removed.
      */
     private static final String message2 = "Therefore, this element is being removed.";
     /**
