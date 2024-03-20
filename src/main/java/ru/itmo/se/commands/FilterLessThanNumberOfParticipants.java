@@ -13,7 +13,7 @@ import lombok.ToString;
  * This method is a custom implementation of the toString() method in the filter_less_than_number_of_participants class.
  */
 @ToString
-public class filterLessThanNumberOfParticipants extends CommandImpl {
+public class FilterLessThanNumberOfParticipants extends CommandImpl {
     /**
      * This field holds an instance of a CollectionManager which is responsible for operations with the collection.
      */
@@ -24,7 +24,7 @@ public class filterLessThanNumberOfParticipants extends CommandImpl {
      *
      * @param collectionManager the specified CollectionManager.
      */
-    public filterLessThanNumberOfParticipants(CollectionManager collectionManager) {
+    public FilterLessThanNumberOfParticipants(CollectionManager collectionManager) {
         super("filter_less_than_number_of_participants <number_of_participants>", "Outputs elements which have less participants than given");
         this.collectionManager = collectionManager;
     }

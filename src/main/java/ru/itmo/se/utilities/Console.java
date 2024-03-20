@@ -70,7 +70,7 @@ public class Console {
      * This method is used to switch the console input to script mode (invoked with execute_script).
      *
      * @param arg a script file.
-     * @return 1 if there's an execution error with the script, <p>2 if the command exit occurs.
+     * @return 1 if there's an execution error with the script, <p>2 if the command Exit occurs.
      */
     private int scriptMode(String arg) {
         String[] userCommand;
@@ -103,7 +103,7 @@ public class Console {
             if (commandStatus == 1 && !(executeStringAliases.contains(userCommand[0]) && !userCommand[1].isEmpty())) {
                 Console.printError("Execution error: Please debug your script.");
                 return commandStatus;
-            } else if (commandStatus == 2 && userCommand[0].equals("exit") && userCommand[1].isEmpty()) {
+            } else if (commandStatus == 2 && userCommand[0].equals("Exit") && userCommand[1].isEmpty()) {
                 System.exit(0);
             }
         } catch (FileNotFoundException e) {
@@ -123,7 +123,7 @@ public class Console {
     /**
      * This method is responsible for command execution.
      * @param userCommand the command to be executed.
-     * @return 0 if the command was executed, <p>1 if the command was not executed and <p>2 if the command was exit.
+     * @return 0 if the command was executed, <p>1 if the command was not executed and <p>2 if the command was Exit.
      */
     private int executeCommand(String[] userCommand) {
         String arg = userCommand[0].toLowerCase(Locale.ROOT);
@@ -186,7 +186,7 @@ public class Console {
     }
 
     /**
-     * This method is a custom implementation of the print() method. The output is colored purple with the help of a corresponding ANSI code.
+     * This method is a custom implementation of the print() method. The output is colored purple with the Help of a corresponding ANSI code.
      *
      * @param toOut the object to be printed.
      */
@@ -195,7 +195,7 @@ public class Console {
     }
 
     /**
-     * This method is a custom implementation of the println() method. The output is colored green with the help of a corresponding ANSI code.
+     * This method is a custom implementation of the println() method. The output is colored green with the Help of a corresponding ANSI code.
      * @param toOut the object to be printed.
      */
     public static void println(Object toOut) {
@@ -203,7 +203,7 @@ public class Console {
     }
 
     /**
-     * This method is a custom implementation of the err.print() method. The output is colored black with red background with the help of corresponding ANSI codes.
+     * This method is a custom implementation of the err.print() method. The output is colored black with red background with the Help of corresponding ANSI codes.
      * @param toOut the error that was raised.
      */
     public static void printError(Object toOut) {
@@ -211,7 +211,7 @@ public class Console {
     }
 
     /**
-     * This method is used to output all the commands in a table format. The row border is colored purple, the object and the column border is colored cyan with the help of corresponding ANSI codes.
+     * This method is used to output all the commands in a table format. The row border is colored purple, the object and the column border is colored cyan with the Help of corresponding ANSI codes.
      *
      * @param e1 first column object.
      * @param e2 second column object.

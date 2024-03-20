@@ -28,7 +28,6 @@ class FileContentValidator {
     private static final String message2 = "Therefore, this element is being removed.";
     /**
      * This method is used to validate the content of the file. If a violation was found, the corresponding object will be removed.
-     *
      * @return validated collection.
      */
     LinkedList<MusicBand> validateFileContent() {

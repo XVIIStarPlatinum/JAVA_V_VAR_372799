@@ -1,34 +1,36 @@
 package ru.itmo.se.commands;
 
 import lombok.ToString;
+import ru.itmo.se.exceptions.EmptyCollectionException;
 import ru.itmo.se.exceptions.InvalidArgumentCountException;
 import ru.itmo.se.utilities.CollectionManager;
 import ru.itmo.se.utilities.Console;
 
 /**
- * This class implements the command save. It writes the collection into a file.
+ * This class implements the command Clear. It clears the collection.
  * -- TOSTRING --
- * This method is a custom implementation of the toString() method in the save class.
+ * This method is a custom implementation of the toString() method in the Clear class.
  */
 @ToString
-public class save extends CommandImpl {
+public class Clear extends CommandImpl {
     /**
      * This field holds an instance of a CollectionManager which is responsible for operations with the collection.
      */
     private final CollectionManager collectionManager;
 
     /**
-     * Constructs a save with the specified CollectionManager.
+     * Constructs a Clear with the specified CollectionManager.
      *
      * @param collectionManager the specified CollectionManager.
      */
-    public save(CollectionManager collectionManager) {
-        super("save", "Saves the changes made during a session into a given file");
+    public Clear(CollectionManager collectionManager) {
+        super("Clear", "Clears the collection");
         this.collectionManager = collectionManager;
     }
 
     /**
-     * This method is an implementation of the abstract apply() method for the save command.
+     * This method is an implementation of the abstract apply() method for the Clear command.
+     *
      * @param arg the argument (unnecessary).
      * @return true if the command was successfully executed, <p>false if the command encountered an error.
      */
@@ -38,11 +40,16 @@ public class save extends CommandImpl {
             if (!arg.isEmpty()) {
                 throw new InvalidArgumentCountException("You don't need an argument here.", new RuntimeException());
             }
-            collectionManager.saveCollection();
-            Console.println("File may be successfully saved. If there's an error message above this, then your changes have not been saved.");
+            if (collectionManager.collectionSize() == 0) {
+                throw new EmptyCollectionException("Empty collection.", new RuntimeException());
+            }
+            collectionManager.clearCollection();
+            Console.println("Collection successfully cleared.");
             return true;
         } catch (InvalidArgumentCountException e) {
             Console.println("Usage: '" + getName() + "'");
+        } catch (EmptyCollectionException e) {
+            Console.printError("Empty collection.");
         }
         return false;
     }

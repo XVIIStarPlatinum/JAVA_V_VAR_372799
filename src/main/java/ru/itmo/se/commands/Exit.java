@@ -6,21 +6,21 @@ import ru.itmo.se.utilities.Console;
 import lombok.ToString;
 
 /**
- * This class implements the command help. It outputs all commands and their specifications in a table format.
+ * This class implements the command Exit. It gracefully terminates the CLI application.
  * -- TOSTRING --
- * This method is a custom implementation of the toString() method in the help class.
+ * This method is a custom implementation of the toString() method in the Exit class.
  */
 @ToString
-public class help extends CommandImpl {
+public class Exit extends CommandImpl {
     /**
-     * Constructs a help.
+     * Constructs an Exit.
      */
-    public help() {
-        super("help", "Outputs a table of available commands");
+    public Exit() {
+        super("Exit", "Gracefully terminates the console application");
     }
 
     /**
-     * This method is an implementation of the abstract apply() method for the help command.
+     * This method is an implementation of the abstract apply() method for the Exit command.
      *
      * @param arg the argument (unnecessary).
      * @return true if the command was successfully executed, <p>false if the command encountered an error.
@@ -33,7 +33,7 @@ public class help extends CommandImpl {
             }
             return true;
         } catch (InvalidArgumentCountException e) {
-            Console.println("Usage: '" + getName() + "'");
+            Console.println("Usage: '" + arg + "'");
         }
         return false;
     }

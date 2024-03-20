@@ -10,29 +10,29 @@ import ru.itmo.se.utilities.CollectionManager;
 import ru.itmo.se.utilities.Console;
 
 /**
- * This class implements the command remove_at. It removes an element from the collection through its index.
+ * This class implements the command remove_by_id. It removes an element from the collection through its ID value.
  * -- TOSTRING --
  * This method is a custom implementation of the toString() method in the add class.
  */
 @ToString
-public class removeAt extends CommandImpl {
+public class RemoveByID extends CommandImpl {
     /**
      * This field holds an instance of a CollectionManager which is responsible for operations with the collection.
      */
     private final CollectionManager collectionManager;
 
     /**
-     * Constructs a remove_at with the specified CollectionManager.
+     * Constructs a remove_by_id with the specified CollectionManager.
      *
      * @param collectionManager the specified CollectionManager.
      */
-    public removeAt(CollectionManager collectionManager) {
-        super("remove_at <index>", "removes an element by its index in the collection");
+    public RemoveByID(CollectionManager collectionManager) {
+        super("remove_by_id <id>", "Removes an element of the collection through its ID value");
         this.collectionManager = collectionManager;
     }
 
     /**
-     * This method is an implementation of the abstract apply() method for the remove_at command.
+     * This method is an implementation of the abstract apply() method for the remove_by_id command.
      * @param arg the argument (necessary).
      * @return true if the command was successfully executed, <p>false if the command encountered an error.
      */
@@ -45,18 +45,21 @@ public class removeAt extends CommandImpl {
             if (collectionManager.collectionSize() == 0) {
                 throw new EmptyCollectionException("Empty collection.", new RuntimeException());
             }
-            MusicBand musicBandToRemove = collectionManager.getByIndex(Integer.parseInt(arg));
+            MusicBand musicBandToRemove = collectionManager.getByID(Integer.parseInt(arg));
+            if (musicBandToRemove == null) {
+                throw new NullMusicBandException("There's no such music band with this ID.", new RuntimeException());
+            }
             collectionManager.removeFromCollection(musicBandToRemove);
-            Console.println("Music band successfully removed.");
+            Console.println("Music band successfully deleted.");
             return true;
         } catch (InvalidArgumentCountException e) {
             Console.println("Usage: '" + getName() + "'");
         } catch (EmptyCollectionException e) {
             Console.printError("Empty collection.");
         } catch (NullMusicBandException e) {
-            Console.printError("No music band with given index.");
+            Console.printError("There's no such music band with this ID.");
         } catch (InvalidInputException e) {
-            Console.printError("What am I supposed to remove? Please enter an index.");
+            Console.printError("What am I supposed to remove? Give me an ID");
         }
         return false;
     }

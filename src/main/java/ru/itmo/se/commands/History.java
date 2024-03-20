@@ -5,21 +5,21 @@ import ru.itmo.se.exceptions.InvalidArgumentCountException;
 import ru.itmo.se.utilities.Console;
 
 /**
- * This class implements the command history. It outputs the 10 most recently used commands without their arguments.
+ * This class implements the command History. It outputs the 10 most recently used commands without their arguments.
  * -- TOSTRING --
- * This method is a custom implementation of the toString() method in the history class.
+ * This method is a custom implementation of the toString() method in the History class.
  */
 @ToString
-public class history extends CommandImpl {
+public class History extends CommandImpl {
     /**
-     * Constructs a history.
+     * Constructs a History.
      */
-    public history() {
-        super("history", "Outputs the 10 last used commands");
+    public History() {
+        super("History", "Outputs the 10 last used commands");
     }
 
     /**
-     * This method is an implementation of the abstract apply() method for the history command.
+     * This method is an implementation of the abstract apply() method for the History command.
      *
      * @param arg the argument (unnecessary).
      * @return true if the command was successfully executed, <p>false if the command encountered an error.

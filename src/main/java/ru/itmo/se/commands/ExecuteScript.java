@@ -11,11 +11,11 @@ import lombok.ToString;
  * This method is a custom implementation of the toString() method in the execute_script class.
  */
 @ToString
-public class executeScript extends CommandImpl {
+public class ExecuteScript extends CommandImpl {
     /**
      * Constructs an execute_script.
      */
-    public executeScript() {
+    public ExecuteScript() {
         super("execute_script <file_name>", "Executes a script from a given file");
     }
 

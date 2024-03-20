@@ -26,9 +26,9 @@ public class CollectionManager {
      */
     private LinkedList<MusicBand> musicBandCollection = new LinkedList<>();
     /**
-     * This field holds the value of the session's last save date and time.
+     * This field holds the value of the session's last Save date and time.
      * -- GETTER --
-     * Getter method for the last save time of the console application.
+     * Getter method for the last Save time of the console application.
      */
     private LocalDateTime lastSaveTime;
     /**
@@ -184,14 +184,14 @@ public class CollectionManager {
     }
 
     /**
-     * This method is used to randomly shuffle the collection.
+     * This method is used to randomly Shuffle the collection.
      */
     public void shuffleCollection() {
         Collections.shuffle(musicBandCollection);
     }
 
     /**
-     * This method is used to clear the collection of all the elements.
+     * This method is used to Clear the collection of all the elements.
      */
     public void clearCollection() {
         musicBandCollection.clear();

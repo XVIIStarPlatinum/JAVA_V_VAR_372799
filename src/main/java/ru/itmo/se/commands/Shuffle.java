@@ -1,36 +1,35 @@
 package ru.itmo.se.commands;
 
+import lombok.ToString;
 import ru.itmo.se.exceptions.EmptyCollectionException;
 import ru.itmo.se.exceptions.InvalidArgumentCountException;
 import ru.itmo.se.utilities.CollectionManager;
 import ru.itmo.se.utilities.Console;
 
-import lombok.ToString;
-
 /**
- * This class implements the command group_counting_by_establishment_date (also a handful). It groups all music bands by establishment date and outputs the number of occurrences for each date.
+ * This class implements the command Shuffle. It randomly shuffles the collection.
  * -- TOSTRING --
- * This method is a custom implementation of the toString() method in the group_counting_by_establishment_date class.
+ * This method is a custom implementation of the toString() method in the Shuffle class.
  */
 @ToString
-public class groupCountingByEstablishmentDate extends CommandImpl {
+public class Shuffle extends CommandImpl {
     /**
      * This field holds an instance of a CollectionManager which is responsible for operations with the collection.
      */
     private final CollectionManager collectionManager;
 
     /**
-     * Constructs a group_counting_by_establishment_date with the specified CollectionManager.
+     * Constructs a Shuffle with the specified CollectionManager.
      *
      * @param collectionManager the specified CollectionManager.
      */
-    public groupCountingByEstablishmentDate(CollectionManager collectionManager) {
-        super("group_counting_by_establishment_dates", "Groups elements by establishment date and outputs instances for each amount");
+    public Shuffle(CollectionManager collectionManager) {
+        super("Shuffle", "Randomly shuffles the collection");
         this.collectionManager = collectionManager;
     }
 
     /**
-     * This method is an implementation of the abstract apply() method for the group_counting_by_establishment_date command.
+     * This method is an implementation of the abstract apply() method for the Shuffle command.
      * @param arg the argument (unnecessary).
      * @return true if the command was successfully executed, <p>false if the command encountered an error.
      */
@@ -43,10 +42,11 @@ public class groupCountingByEstablishmentDate extends CommandImpl {
             if (collectionManager.collectionSize() == 0) {
                 throw new EmptyCollectionException("Empty collection.", new RuntimeException());
             }
-            collectionManager.groupCountingByEstablishmentDate();
+            collectionManager.shuffleCollection();
+            Console.println("Collection successfully scrambled.");
             return true;
         } catch (InvalidArgumentCountException e) {
-            Console.println("Usage: " + getName() + "'");
+            Console.println("Usage: '" + getName() + "'");
         } catch (EmptyCollectionException e) {
             Console.printError("Empty collection.");
         }

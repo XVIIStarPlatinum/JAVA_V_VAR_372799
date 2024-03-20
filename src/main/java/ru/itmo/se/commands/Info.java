@@ -8,29 +8,29 @@ import ru.itmo.se.utilities.Console;
 import java.time.LocalDateTime;
 
 /**
- * This class implements the command info. It outputs all necessary information about the CLI application, for example the collection's type and size, last session time and last save time.
+ * This class implements the command Info. It outputs all necessary information about the CLI application, for example the collection's type and size, last session time and last Save time.
  * -- TOSTRING --
- * This method is a custom implementation of the toString() method in the info class.
+ * This method is a custom implementation of the toString() method in the Info class.
  */
 @ToString
-public class info extends CommandImpl {
+public class Info extends CommandImpl {
     /**
      * This field holds an instance of a CollectionManager which is responsible for operations with the collection.
      */
     private final CollectionManager collectionManager;
 
     /**
-     * Constructs an info with the specified CollectionManager.
+     * Constructs an Info with the specified CollectionManager.
      *
      * @param collectionManager the specified collectionManager.
      */
-    public info(CollectionManager collectionManager) {
-        super("info", "Gives information about the collection");
+    public Info(CollectionManager collectionManager) {
+        super("Info", "Gives information about the collection");
         this.collectionManager = collectionManager;
     }
 
     /**
-     * This method is an implementation of the abstract apply() method for the info command.
+     * This method is an implementation of the abstract apply() method for the Info command.
      * @param arg the argument (unnecessary).
      * @return true if the command was successfully executed, <p>false if the command encountered an error.
      */

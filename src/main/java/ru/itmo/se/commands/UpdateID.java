@@ -22,7 +22,7 @@ import java.util.Date;
  * This method is a custom implementation of the toString() method in the update class.
  */
 @ToString
-public class updateID extends CommandImpl {
+public class UpdateID extends CommandImpl {
     /**
      * This field holds an instance of a CollectionManager which is responsible for operations with the collection.
      */
@@ -38,7 +38,7 @@ public class updateID extends CommandImpl {
      * @param collectionManager  the specified CollectionManager.
      * @param musicBandValidator the specified MusicBandValidator.
      */
-    public updateID(CollectionManager collectionManager, MusicBandValidator musicBandValidator) {
+    public UpdateID(CollectionManager collectionManager, MusicBandValidator musicBandValidator) {
         super("update <ID> {element}", "Updates an element of the collection with the givan ID");
         this.collectionManager = collectionManager;
         this.musicBandValidator = musicBandValidator;

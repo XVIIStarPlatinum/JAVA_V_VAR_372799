@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class CommandManager {
     /**
-     * This field stores the capacity of command history.
+     * This field stores the capacity of command History.
      */
     private static final int COMMAND_HISTORY_SIZE = 10;
     /**
@@ -31,7 +31,7 @@ public class CommandManager {
      */
     private final CommandImpl add;
     /**
-     * This field is for the command clear.
+     * This field is for the command Clear.
      */
     private final CommandImpl clear;
     /**
@@ -39,7 +39,7 @@ public class CommandManager {
      */
     private final CommandImpl executeScript;
     /**
-     * This field is for the command exit.
+     * This field is for the command Exit.
      */
     private final CommandImpl exit;
     /**
@@ -51,15 +51,15 @@ public class CommandManager {
      */
     private final CommandImpl groupCountingByEstablishmentDate;
     /**
-     * This field is for the command help.
+     * This field is for the command Help.
      */
     private final CommandImpl help;
     /**
-     * This field is for the command history.
+     * This field is for the command History.
      */
     private final CommandImpl history;
     /**
-     * This field is for the command info.
+     * This field is for the command Info.
      */
     private final CommandImpl info;
     /**
@@ -75,15 +75,15 @@ public class CommandManager {
      */
     private final CommandImpl removeByID;
     /**
-     * This field is for the command save.
+     * This field is for the command Save.
      */
     private final CommandImpl save;
     /**
-     * This field is for the command show.
+     * This field is for the command Show.
      */
     private final CommandImpl show;
     /**
-     * This field is for the command shuffle.
+     * This field is for the command Shuffle.
      */
     private final CommandImpl shuffle;
     /**
@@ -95,20 +95,20 @@ public class CommandManager {
      * Constructs a CommandManager with the specified commands.
      *
      * @param add                                   the command add.
-     * @param clear                                 the command clear.
+     * @param clear                                 the command Clear.
      * @param executeScript                         the command execute_script.
-     * @param exit                                  the command exit.
+     * @param exit                                  the command Exit.
      * @param filterLessThanNumberOfParticipants    the command filter_less_than_number_of_participants.
      * @param groupCountingByEstablishmentDate      the command group_counting_by_establishment_date.
-     * @param help                                  the command help.
-     * @param history                               the command history.
-     * @param info                                  the command info.
+     * @param help                                  the command Help.
+     * @param history                               the command History.
+     * @param info                                  the command Info.
      * @param printFieldDescendingEstablishmentDate the command print_field_descending_establishment_date.
      * @param removeAt                              the command remove_at.
      * @param removeByID                            the command remove_by_id.
-     * @param save                                  the command save.
-     * @param show                                  the command show.
-     * @param shuffle                               the command shuffle.
+     * @param save                                  the command Save.
+     * @param show                                  the command Show.
+     * @param shuffle                               the command Shuffle.
      * @param updateID                              the command update.
      */
     public CommandManager(CommandImpl add, CommandImpl clear, CommandImpl executeScript, CommandImpl exit, CommandImpl filterLessThanNumberOfParticipants, CommandImpl groupCountingByEstablishmentDate, CommandImpl help, CommandImpl history, CommandImpl info, CommandImpl printFieldDescendingEstablishmentDate, CommandImpl removeAt, CommandImpl removeByID, CommandImpl save, CommandImpl show, CommandImpl shuffle, CommandImpl updateID) {
@@ -148,7 +148,7 @@ public class CommandManager {
     }
 
     /**
-     * This method is used to register the most recently used command into the history.
+     * This method is used to register the most recently used command into the History.
      * @param recentCommand the most recent command.
      */
     void addToHistory(String recentCommand) {
@@ -167,7 +167,7 @@ public class CommandManager {
      * @param arg unavailable command.
      */
     static void noSuchCommand(String arg) {
-        Console.println("Command '" + arg + "' not found. Use command 'help' for advice.");
+        Console.println("Command '" + arg + "' not found. Use command 'Help' for advice.");
     }
 
     /**
@@ -179,7 +179,7 @@ public class CommandManager {
         return executeScript.apply(arg);
     }
     /**
-     * This method is used as a trigger for the help command.
+     * This method is used as a trigger for the Help command.
      * @param arg the argument.
      * @return whether the command was executed or not.
      */
@@ -196,7 +196,7 @@ public class CommandManager {
     }
 
     /**
-     * This method is used as a trigger for the show command.
+     * This method is used as a trigger for the Show command.
      * @param arg the argument.
      * @return whether the command was executed or not.
      */
@@ -205,7 +205,7 @@ public class CommandManager {
     }
 
     /**
-     * This method is used as a trigger for the info command.
+     * This method is used as a trigger for the Info command.
      * @param arg the argument.
      * @return whether the command was executed or not.
      */
@@ -214,7 +214,7 @@ public class CommandManager {
     }
 
     /**
-     * This method is used as a trigger for the save command.
+     * This method is used as a trigger for the Save command.
      * @param arg the argument.
      * @return whether the command was executed or not.
      */
@@ -222,7 +222,7 @@ public class CommandManager {
         return save.apply(arg);
     }
     /**
-     * This method is used as a trigger for the exit command.
+     * This method is used as a trigger for the Exit command.
      * @param arg the argument.
      * @return whether the command was executed or not.
      */
@@ -248,7 +248,7 @@ public class CommandManager {
         return printFieldDescendingEstablishmentDate.apply(arg);
     }
     /**
-     * This method is used as a trigger for the history command.
+     * This method is used as a trigger for the History command.
      * @param arg the argument.
      * @return whether the command was executed or not.
      */
@@ -256,7 +256,7 @@ public class CommandManager {
         if (history.apply(arg)) {
             try {
                 if (commandHistory.length == 0) {
-                    throw new EmptyHistoryException("You just started this session, of course the history is empty.", new RuntimeException());
+                    throw new EmptyHistoryException("You just started this session, of course the History is empty.", new RuntimeException());
                 }
                 Console.println("Recently used commands:");
                 for (String s : commandHistory) {
@@ -280,7 +280,7 @@ public class CommandManager {
     }
 
     /**
-     * This method is used as a trigger for the clear command.
+     * This method is used as a trigger for the Clear command.
      * @param arg the argument.
      * @return whether the command was executed or not.
      */
@@ -324,7 +324,7 @@ public class CommandManager {
         return removeByID.apply(arg);
     }
     /**
-     * This method is used as a trigger for the shuffle command.
+     * This method is used as a trigger for the Shuffle command.
      * @param arg the argument.
      * @return whether the command was executed or not.
      */

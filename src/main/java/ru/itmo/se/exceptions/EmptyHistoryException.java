@@ -3,7 +3,7 @@ package ru.itmo.se.exceptions;
 import lombok.Getter;
 
 /**
- * Exception class for empty command history.
+ * Exception class for empty command History.
  */
 @Getter
 public class EmptyHistoryException extends RuntimeException {

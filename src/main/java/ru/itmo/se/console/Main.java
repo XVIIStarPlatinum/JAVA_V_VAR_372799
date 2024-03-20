@@ -71,22 +71,22 @@ public class Main {
         MusicBandValidator musicBandValidator = new MusicBandValidator(userScanner);
         CollectionManager collectionManager = new CollectionManager(fileManager);
         CommandManager commandManager = new CommandManager(
-                new add(collectionManager, musicBandValidator),
-                new clear(collectionManager),
-                new executeScript(),
-                new exit(),
-                new filterLessThanNumberOfParticipants(collectionManager),
-                new groupCountingByEstablishmentDate(collectionManager),
-                new help(),
-                new history(),
-                new info(collectionManager),
-                new printFieldDescendingEstablishmentDate(collectionManager),
-                new removeAt(collectionManager),
-                new removeByID(collectionManager),
-                new save(collectionManager),
-                new show(collectionManager),
-                new shuffle(collectionManager),
-                new updateID(collectionManager, musicBandValidator)
+                new Add(collectionManager, musicBandValidator),
+                new Clear(collectionManager),
+                new ExecuteScript(),
+                new Exit(),
+                new FilterLessThanNumberOfParticipants(collectionManager),
+                new GroupCountingByEstablishmentDate(collectionManager),
+                new Help(),
+                new History(),
+                new Info(collectionManager),
+                new PrintFieldDescendingEstablishmentDate(collectionManager),
+                new RemoveAt(collectionManager),
+                new RemoveByID(collectionManager),
+                new Save(collectionManager),
+                new Show(collectionManager),
+                new Shuffle(collectionManager),
+                new UpdateID(collectionManager, musicBandValidator)
         );
         Console console = new Console(commandManager, userScanner, musicBandValidator);
         console.InteractiveMode();

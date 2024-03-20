@@ -17,7 +17,7 @@ import java.util.Date;
  * This method is a custom implementation of the toString() method in the add class.
  */
 @ToString
-public class add extends CommandImpl {
+public class Add extends CommandImpl {
     /**
      * This field holds an instance of a CollectionManager which is responsible for operations with the collection.
      */
@@ -33,7 +33,7 @@ public class add extends CommandImpl {
      * @param collectionManager  the specified CollectionManager.
      * @param musicBandValidator the specified MusicBandValidator.
      */
-    public add(CollectionManager collectionManager, MusicBandValidator musicBandValidator) {
+    public Add(CollectionManager collectionManager, MusicBandValidator musicBandValidator) {
         super("add {element}", "Adds a new element to the collection");
         this.collectionManager = collectionManager;
         this.musicBandValidator = musicBandValidator;
