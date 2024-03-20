@@ -18,7 +18,14 @@ class FileContentValidator {
      * This field holds an instance of a FileManager which is responsible for operations with files.
      */
     private FileManager fileManager = new FileManager(Main.cliArgument);
-
+    /**
+     * This field holds a message to be displayed in case something went wrong.
+     */
+    private static final String message1 = "It seems like the data was externally altered.";
+    /**
+     * This field holds a message to be displayed if th element is being removed..
+     */
+    private static final String message2 = "Therefore, this element is being removed.";
     /**
      * This method is used to validate the content of the file. If a violation was found, the corresponding object will be removed.
      *
@@ -36,57 +43,57 @@ class FileContentValidator {
             MusicGenre musicGenre = musicBand.getMusicGenre();
             Studio studio = musicBand.getStudio();
             if (MusicBandValidator.checkID(id)) {
-                Console.printError("It seems like the data was externally altered.");
+                Console.printError(message1);
                 Console.printError("This field (ID: " + id + ") has violated the necessary constraints.");
-                Console.printError("Therefore, this element is being removed.");
+                Console.printError(message2);
                 musicBandLinkedList.remove(musicBand);
             }
             if (MusicBandValidator.checkName(name)) {
-                Console.printError("It seems like the data was externally altered.");
+                Console.printError(message1);
                 Console.printError("This field (Name: " + name + ") has violated the necessary constraints.");
-                Console.printError("Therefore, this element is being removed.");
+                Console.printError(message2);
                 musicBandLinkedList.remove(musicBand);
             }
             if (MusicBandValidator.checkX(coordinates.getX())) {
-                Console.printError("It seems like the data was externally altered.");
+                Console.printError(message1);
                 Console.printError("This field (Coordinates (X): " + coordinates.getX() + ") has violated the necessary constraints.");
-                Console.printError("Therefore, this element is being removed.");
+                Console.printError(message2);
                 musicBandLinkedList.remove(musicBand);
             }
             if (MusicBandValidator.checkY(coordinates.getY())) {
-                Console.printError("It seems like the data was externally altered.");
+                Console.printError(message1);
                 Console.printError("This field (Coordinates (Y): " + coordinates.getY() + ") has violated the necessary constraints.");
-                Console.printError("Therefore, this element is being removed.");
+                Console.printError(message2);
                 musicBandLinkedList.remove(musicBand);
             }
             if (MusicBandValidator.checkDate(creationDate)) {
-                Console.printError("It seems like the data was externally altered.");
+                Console.printError(message1);
                 Console.printError("This field (Creation date: " + creationDate + ") has violated the necessary constraints.");
-                Console.printError("Therefore, this element is being removed.");
+                Console.printError(message2);
                 musicBandLinkedList.remove(musicBand);
             }
             if (MusicBandValidator.checkNumberOfParticipants(numberOfParticipants)) {
-                Console.printError("It seems like the data was externally altered.");
+                Console.printError(message1);
                 Console.printError("This field (Number of participants: " + numberOfParticipants + ") has violated the necessary constraints.");
-                Console.printError("Therefore, this element is being removed.");
+                Console.printError(message2);
                 musicBandLinkedList.remove(musicBand);
             }
             if (MusicBandValidator.checkEstablishmentDate(establishmentDate)) {
-                Console.printError("It seems like the data was externally altered.");
+                Console.printError(message1);
                 Console.printError("This field (Establishment date: " + establishmentDate.toString() + ") has violated the necessary constraints.");
-                Console.printError("Therefore, this element is being removed.");
+                Console.printError(message2);
                 musicBandLinkedList.remove(musicBand);
             }
             if (MusicBandValidator.checkMusicGenre(musicGenre)) {
-                Console.printError("It seems like the data was externally altered.");
+                Console.printError(message1);
                 Console.printError("This field (Music genre: " + musicGenre + ") has violated the necessary constraints.");
-                Console.printError("Therefore, this element is being removed.");
+                Console.printError(message2);
                 musicBandLinkedList.remove(musicBand);
             }
             if (MusicBandValidator.checkAddress(studio.toString())) {
-                Console.printError("It seems like the data was externally altered.");
+                Console.printError(message1);
                 Console.printError("This field (Studio address: " + studio.toString() + ") has violated the necessary constraints.");
-                Console.printError("Therefore, this element is being removed.");
+                Console.printError(message2);
                 musicBandLinkedList.remove(musicBand);
             }
         }
