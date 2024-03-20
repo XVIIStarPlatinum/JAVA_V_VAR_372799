@@ -3,10 +3,7 @@ package ru.itmo.se.utilities;
 import lombok.Getter;
 import ru.itmo.se.commands.CommandImpl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Utility class used for operations with commands and their management. Some of them are implemented here.
@@ -28,16 +25,16 @@ public class CommandManager {
     @Getter
     private final List<CommandImpl> commands = new ArrayList<>();
     /**
-     *
+     * This structure maps all aliases to their corresponding commands.
      */
-    public static HashMap<String, CommandImpl> commandMap = new LinkedHashMap<>();
+    public Map<String, CommandImpl> commandMap = new LinkedHashMap<>();
     /**
-     *
-     * @param commandAlias
-     * @param command
+     * This method add an alias with its corresponding command.
+     * @param commandAlias the command alias (full and shorthand).
+     * @param command the command itself.
      */
     protected void addCommand(String commandAlias, CommandImpl command) {
-        commandMap.put(commandAlias, command);
+        this.commandMap.put(commandAlias, command);
     }
     /**
      * This method is used to register the most recently used command into the History.
@@ -53,7 +50,6 @@ public class CommandManager {
             }
         }
     }
-
     /**
      * This method is used to signify to the user that the command is unavailable.
      * @param arg unavailable command.
@@ -61,12 +57,6 @@ public class CommandManager {
     static void noSuchCommand(String arg) {
         Console.println("Command '" + arg + "' not found. Use command 'Help' for advice.");
     }
-
-    /**
-     * This method is used as a trigger for the Help command.
-     * @param arg the argument.
-     * @return whether the command was executed or not.
-     */
     /**
      * A custom implementation of the toString() method in CommandManager.
      * @return information about this class.

@@ -133,13 +133,13 @@ public class Console {
     private int executeCommand(String[] userCommand) {
         String command = userCommand[0].toLowerCase(Locale.ROOT);
         String arg = userCommand[1].toLowerCase(Locale.ROOT);
-        if (CommandManager.commandMap.containsKey(command)) {
+        if (commandManager.commandMap.containsKey(command)) {
             if (command.equals("exit")) {
-                return (CommandManager.commandMap.get("exit").apply(arg)) ? 2 : 1;
+                return (commandManager.commandMap.get("exit").apply(arg)) ? 2 : 1;
             } else if (executeStringAliases.contains(command)) {
-                return (CommandManager.commandMap.get(command).apply(arg)) ? scriptMode(arg) : 1;
+                return (commandManager.commandMap.get(command).apply(arg)) ? scriptMode(arg) : 1;
             } else {
-                return (CommandManager.commandMap.get(command).apply(arg)) ? 0 : 1;
+                return (commandManager.commandMap.get(command).apply(arg)) ? 0 : 1;
             }
         } else {
             CommandManager.noSuchCommand(userCommand[0]);
