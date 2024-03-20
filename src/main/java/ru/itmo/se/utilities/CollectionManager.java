@@ -160,8 +160,9 @@ public class CollectionManager {
     public String musicBandParticipantsFilteredInfo(Long numberOfParticipants) {
         StringBuilder info = new StringBuilder();
         for (MusicBand musicBand : musicBandCollection) {
+            if (musicBand.getNumberOfParticipants() == null) continue;
             if (musicBand.getNumberOfParticipants() < numberOfParticipants) {
-                info.append(musicBand).append("\n\n");
+                info.append(musicBand).append("\n").append("-=".repeat(41)).append("\n");
             }
         }
         return info.toString().trim();

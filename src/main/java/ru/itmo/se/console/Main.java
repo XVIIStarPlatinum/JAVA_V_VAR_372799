@@ -8,6 +8,7 @@ import sun.misc.SignalHandler;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Scanner;
 
 /**
@@ -30,7 +31,6 @@ public class Main {
      * The margin of error used for comparing float values.
      */
     public static final float EPSILON = 0.00000001F;
-
     /**
      * The driver method used to launch the CLI application.
      *
@@ -53,6 +53,10 @@ public class Main {
             Signal.handle(new Signal("TERM"), handler);
             cliArgument = args[0];
             File file = new File(cliArgument);
+            if (!Files.isReadable(file.toPath())) {
+                Console.printError("You don't have access to this file. Try again, maybe after doing chmod 777 or something.");
+                System.exit(1);
+            }
             if (!file.exists()) {
                 try {
                     if (file.createNewFile()) {
@@ -62,7 +66,7 @@ public class Main {
                         outputStreamWriter.close();
                     }
                 } catch (FileNotFoundException e) {
-                    Console.printError("File not found.");
+                    Console.printError("File cannot be created.");
                     e.printStackTrace();
                 }
             }
@@ -70,24 +74,28 @@ public class Main {
         FileManager fileManager = new FileManager(cliArgument);
         MusicBandValidator musicBandValidator = new MusicBandValidator(userScanner);
         CollectionManager collectionManager = new CollectionManager(fileManager);
-        CommandManager commandManager = new CommandManager(
-                new Add(collectionManager, musicBandValidator),
-                new Clear(collectionManager),
-                new ExecuteScript(),
-                new Exit(),
-                new FilterLessThanNumberOfParticipants(collectionManager),
-                new GroupCountingByEstablishmentDate(collectionManager),
-                new Help(),
-                new History(),
-                new Info(collectionManager),
-                new PrintFieldDescendingEstablishmentDate(collectionManager),
-                new RemoveAt(collectionManager),
-                new RemoveByID(collectionManager),
-                new Save(collectionManager),
-                new Show(collectionManager),
-                new Shuffle(collectionManager),
-                new UpdateID(collectionManager, musicBandValidator)
-        );
+        CommandManager commandManager = new CommandManager() {{
+            addCommand("add", new Add(collectionManager, musicBandValidator));
+            addCommand("clear", new Clear(collectionManager));
+            addCommand("execute_script", new ExecuteScript());
+            addCommand("exs", new ExecuteScript());
+            addCommand("exit", new Exit());
+            addCommand("filter_less_than_number_of_participants", new FilterLessThanNumberOfParticipants(collectionManager));
+            addCommand("fltnop", new FilterLessThanNumberOfParticipants(collectionManager));
+            addCommand("group_counting_by_establishment_date", new GroupCountingByEstablishmentDate(collectionManager));
+            addCommand("gcbed", new GroupCountingByEstablishmentDate(collectionManager));
+            addCommand("help", new Help());
+            addCommand("history", new History(this));
+            addCommand("info", new Info(collectionManager));
+            addCommand("print_field_descending_establishment_date", new PrintFieldDescendingEstablishmentDate(collectionManager));
+            addCommand("pfded", new PrintFieldDescendingEstablishmentDate(collectionManager));
+            addCommand("remove_at", new RemoveAt(collectionManager));
+            addCommand("remove_by_id", new RemoveByID(collectionManager));
+            addCommand("save", new Save(collectionManager));
+            addCommand("show", new Show(collectionManager));
+            addCommand("shuffle", new Shuffle(collectionManager));
+            addCommand("update", new UpdateID(collectionManager, musicBandValidator));
+        }};
         Console console = new Console(commandManager, userScanner, musicBandValidator);
         console.InteractiveMode();
         Console.println("             We'll meet again");

@@ -1,9 +1,9 @@
 package ru.itmo.se.commands;
 
-import ru.itmo.se.exceptions.InvalidArgumentCountException;
-import ru.itmo.se.utilities.Console;
-
 import lombok.ToString;
+import ru.itmo.se.exceptions.InvalidArgumentCountException;
+import ru.itmo.se.utilities.CommandManager;
+import ru.itmo.se.utilities.Console;
 
 /**
  * This class implements the command Help. It outputs all commands and their specifications in a table format.
@@ -30,6 +30,10 @@ public class Help extends CommandImpl {
         try {
             if (!arg.isEmpty()) {
                 throw new InvalidArgumentCountException("You don't need an argument here.", new RuntimeException());
+            }
+            Console.printTable("                          COMMAND NAME", "                                  COMMAND SPECIFICATION");
+            for (CommandImpl command : CommandManager.commandMap.values()) {
+                Console.printTable(command.getName(), command.getSpec());
             }
             return true;
         } catch (InvalidArgumentCountException e) {

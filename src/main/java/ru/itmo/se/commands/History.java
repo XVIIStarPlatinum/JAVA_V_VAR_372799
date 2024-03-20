@@ -1,7 +1,9 @@
 package ru.itmo.se.commands;
 
 import lombok.ToString;
+import ru.itmo.se.exceptions.EmptyHistoryException;
 import ru.itmo.se.exceptions.InvalidArgumentCountException;
+import ru.itmo.se.utilities.CommandManager;
 import ru.itmo.se.utilities.Console;
 
 /**
@@ -12,15 +14,19 @@ import ru.itmo.se.utilities.Console;
 @ToString
 public class History extends CommandImpl {
     /**
-     * Constructs a History.
+     * This field holds an instance of a CommandManager which is responsible for operations with commands.
      */
-    public History() {
+    private CommandManager commandManager;
+    /**
+     * Constructs a History with the specified CommandManager.
+     * @param commandManager the specified CommandManager.
+     */
+    public History(CommandManager commandManager) {
         super("History", "Outputs the 10 last used commands");
+        this.commandManager = commandManager;
     }
-
     /**
      * This method is an implementation of the abstract apply() method for the History command.
-     *
      * @param arg the argument (unnecessary).
      * @return true if the command was successfully executed, <p>false if the command encountered an error.
      */
@@ -30,7 +36,16 @@ public class History extends CommandImpl {
             if (!arg.isEmpty()) {
                 throw new InvalidArgumentCountException("You don't need an argument here.", new RuntimeException());
             }
+            if (commandManager.commandHistory.length == 0) {
+                throw new EmptyHistoryException("You just started this session, of course the History is empty.", new RuntimeException());
+            }
+            Console.println("Recently used commands:");
+            for (String s : commandManager.commandHistory) {
+                if (s != null) Console.println(" " + s);
+            }
             return true;
+        } catch (EmptyHistoryException e) {
+            Console.printError("Not a single command was executed yet.");
         } catch (InvalidArgumentCountException e) {
             Console.println("Usage: '" + getName() + "'");
         }
