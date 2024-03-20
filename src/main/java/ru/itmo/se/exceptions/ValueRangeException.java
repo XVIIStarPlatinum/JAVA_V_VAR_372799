@@ -15,7 +15,7 @@ public class ValueRangeException extends RuntimeException {
     private final String message;
 
     /**
-     * Constructs an ValueRangeException with the specified message and cause.
+     * Constructs a ValueRangeException with the specified message and cause.
      *
      * @param message the specified message.
      * @param cause   the specified Throwable object.

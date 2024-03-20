@@ -15,7 +15,7 @@ public class NullMusicBandException extends RuntimeException {
     private final String message;
 
     /**
-     * Constructs an NullMusicBandException with the specified message and cause.
+     * Constructs a NullMusicBandException with the specified message and cause.
      *
      * @param message the specified message.
      * @param cause   the specified Throwable object.

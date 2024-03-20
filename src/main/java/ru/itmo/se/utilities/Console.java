@@ -34,7 +34,6 @@ public class Console {
      * This field stores all possible aliases for the command execute_script. It is used to catch out any unchecked recursions.
      */
     private Collection<String> executeStringAliases = new ArrayList<>(Arrays.asList("execute_script", "exs", "учусгеу_ыскшзе", "учы"));
-
     /**
      * Constructs a Console with the specified CommandManager, Scanner and MusicBandValidator.
      *
@@ -219,7 +218,7 @@ public class Console {
      */
     static void printTable(Object e1, Object e2) {
         System.out.printf("\u001B[36m" + "| %-64s | %-88s | %n", e1, e2);
-        System.out.print("\u001B[35m" + "=-".repeat(79) + "=%n");
+        System.out.print("\u001B[35m" + "=-".repeat(79) + "=\n");
     }
 
     /**

@@ -15,7 +15,7 @@ public class NullValueException extends RuntimeException {
     private final String message;
 
     /**
-     * Constructs an NullValueException with the specified message and cause.
+     * Constructs a NullValueException with the specified message and cause.
      *
      * @param message the specified message.
      * @param cause   the specified Throwable object.

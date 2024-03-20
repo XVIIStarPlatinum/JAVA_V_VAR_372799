@@ -15,7 +15,7 @@ public class RecursionException extends RuntimeException {
     private final String message;
 
     /**
-     * Constructs an RecursionException with the specified message and cause.
+     * Constructs a RecursionException with the specified message and cause.
      *
      * @param message the specified message.
      * @param cause   the specified Throwable object.

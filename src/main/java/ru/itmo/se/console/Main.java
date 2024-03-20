@@ -44,6 +44,13 @@ public class Main {
             Console.printError("There must be an argument. Please try again.");
             System.exit(0);
         } else {
+            SignalHandler handler = sig -> {
+                Console.printError("Ctrl+C? How dare you!");
+                System.exit(0);
+            };
+            Signal.handle(new Signal("INT"), handler);
+            Signal.handle(new Signal("ABRT"), handler);
+            Signal.handle(new Signal("TERM"), handler);
             cliArgument = args[0];
             File file = new File(cliArgument);
             if (!file.exists()) {
@@ -83,13 +90,6 @@ public class Main {
         );
         Console console = new Console(commandManager, userScanner, musicBandValidator);
         console.InteractiveMode();
-        SignalHandler handler = sig -> {
-            Console.printError("Ctrl+C? How dare you!");
-            System.exit(0);
-        };
-        Signal.handle(new Signal("INT"), handler);
-        Signal.handle(new Signal("ABRT"), handler);
-        Signal.handle(new Signal("TERM"), handler);
         Console.println("             We'll meet again");
         Console.println("    Don't know where, don't know when");
         Console.println("But I know we'll meet again some sunny day.");
