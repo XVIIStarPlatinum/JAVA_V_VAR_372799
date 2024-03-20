@@ -10,22 +10,32 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class FileContentValidator {
+/**
+ * Utility class used for validating the content of the file in case of an external change.
+ */
+class FileContentValidator {
+    /**
+     * This field holds an instance of a FileManager which is responsible for operations with files.
+     */
+    private FileManager fileManager = new FileManager(Main.cliArgument);
 
-    FileManager fileManager = new FileManager(Main.cliArgument);
-
-    public LinkedList<MusicBand> validateFileContent() {
+    /**
+     * This method is used to validate the content of the file. If a violation was found, the corresponding object will be removed.
+     *
+     * @return validated collection.
+     */
+    LinkedList<MusicBand> validateFileContent() {
         LinkedList<MusicBand> musicBandLinkedList = fileManager.readCollection();
         for (MusicBand musicBand : musicBandLinkedList) {
             Integer id = musicBand.getId();
             String name = musicBand.getName();
             Coordinates coordinates = musicBand.getCoordinates();
             Date creationDate = musicBand.getCreationDate();
-            Long numberOfParticipants = (musicBand.getNumberOfParticipants() == null) ? 0L : musicBand.getNumberOfParticipants();
+            Long numberOfParticipants = musicBand.getNumberOfParticipants();
             LocalDateTime establishmentDate = musicBand.getEstablishmentDate();
             MusicGenre musicGenre = musicBand.getMusicGenre();
             Studio studio = musicBand.getStudio();
-            if (MusicBandValidator.checkID(id) || MusicBandValidator.checkUniqueID(id)) {
+            if (MusicBandValidator.checkID(id)) {
                 Console.printError("It seems like the data was externally altered.");
                 Console.printError("This field (ID: " + id + ") has violated the necessary constraints.");
                 Console.printError("Therefore, this element is being removed.");
@@ -55,7 +65,7 @@ public class FileContentValidator {
                 Console.printError("Therefore, this element is being removed.");
                 musicBandLinkedList.remove(musicBand);
             }
-            if (!numberOfParticipants.toString().equals("null") && MusicBandValidator.checkNumberOfParticipants(numberOfParticipants)) {
+            if (MusicBandValidator.checkNumberOfParticipants(numberOfParticipants)) {
                 Console.printError("It seems like the data was externally altered.");
                 Console.printError("This field (Number of participants: " + numberOfParticipants + ") has violated the necessary constraints.");
                 Console.printError("Therefore, this element is being removed.");

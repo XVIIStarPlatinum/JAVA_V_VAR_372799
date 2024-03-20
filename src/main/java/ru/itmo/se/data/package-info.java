@@ -4,7 +4,7 @@
  * </p>
  *
  * @version 2.1
- * @author Ariguun Bolorbold | XVIIstarPt__
+ * @author Аригуун Болорболд | XVIIstarPt__
  * @since 2.1
  */
 package ru.itmo.se.data;

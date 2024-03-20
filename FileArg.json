@@ -73,5 +73,20 @@
     "studio": {
       "address": "Merseyside, England"
     }
+  },
+  {
+    "id": 6,
+    "name": "something",
+    "coordinates": {
+      "x": 1.2454,
+      "y": -13.5
+    },
+    "creationDate": "Mar 19, 2024, 9:28:53 PM",
+    "numberOfParticipants": null,
+    "establishmentDate": "2301-11-23",
+    "musicGenre": null,
+    "studio": {
+      "address": "jdfndsj"
+    }
   }
 ]

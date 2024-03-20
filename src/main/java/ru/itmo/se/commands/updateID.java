@@ -16,24 +16,44 @@ import ru.itmo.se.utilities.MusicBandValidator;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+/**
+ * This class implements the command update. It updates an element by removing it through its ID and creating a new one from the extracted data.
+ * -- TOSTRING --
+ * This method is a custom implementation of the toString() method in the update class.
+ */
 @ToString
 public class updateID extends CommandImpl {
-
+    /**
+     * This field holds an instance of a CollectionManager which is responsible for operations with the collection.
+     */
     private final CollectionManager collectionManager;
-
+    /**
+     * This field holds an instance of a MusicBandValidator which is responsible for all validations.
+     */
     private final MusicBandValidator musicBandValidator;
 
+    /**
+     * Constructs an update with the specified CollectionManager and FileManager.
+     *
+     * @param collectionManager  the specified CollectionManager.
+     * @param musicBandValidator the specified MusicBandValidator.
+     */
     public updateID(CollectionManager collectionManager, MusicBandValidator musicBandValidator) {
         super("update <ID> {element}", "Updates an element of the collection with the givan ID");
         this.collectionManager = collectionManager;
         this.musicBandValidator = musicBandValidator;
     }
 
+    /**
+     * This method is an implementation of the abstract apply() method for the update command.
+     * @param arg the argument (unnecessary).
+     * @return true if the command was successfully executed, <p>false if the command encountered an error.
+     */
     @Override
     public boolean apply(String arg) {
         try {
             if (arg.isEmpty()) {
-                throw new InvalidArgumentCountException("Inappropriate argument count", new RuntimeException());
+                throw new InvalidArgumentCountException("You need an argument here.", new RuntimeException());
             }
             if (collectionManager.collectionSize() == 0) {
                 throw new EmptyCollectionException("Empty collection.", new RuntimeException());
@@ -68,7 +88,6 @@ public class updateID extends CommandImpl {
                 if (musicBandValidator.askQuestion("Do you want to change the studio?")) {
                     studio = musicBandValidator.askStudio();
                 }
-
                 collectionManager.addToCollection(new MusicBand(
                         id, name,
                         coordinates,

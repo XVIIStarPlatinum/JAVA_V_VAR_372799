@@ -2,6 +2,7 @@ package ru.itmo.se.utilities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import ru.itmo.se.console.Main;
 import ru.itmo.se.data.Coordinates;
 import ru.itmo.se.data.MusicGenre;
@@ -16,29 +17,55 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
+/**
+ * Utility class used for validating all data and conforming them to necessary constraints.
+ */
 @Getter
 @Setter
+@ToString
 public class MusicBandValidator {
-
-    private static final float MIN_X = -584.0F;
-
+    /**
+     * This field holds the minimum limit value of coordinate X.
+     */
+    public final static float MIN_X = -584.0F;
+    /**
+     * This field holds the scanner via which the application will receive inputs.
+     */
     private Scanner userScanner;
-
+    /**
+     * This field holds the value of whether the validator is working in file mode (in script) or not.
+     */
     private boolean fileMode;
-
+    /**
+     * This field stores all the values of ID's. Set is used here to ensure the IDs' uniqueness constraint.
+     */
     private static Set<Integer> IDset = new TreeSet<>();
-
+    /**
+     * This field stores all possible date formats for the field EstablishmentDate.
+     */
     private static final DateTimeFormatterBuilder formats = new DateTimeFormatterBuilder()
-            .append(DateTimeFormatter.ofPattern("[uuuu-MM-dd]" + "[uuuu/MM/dd]" + "[uuuu MM dd]" + "[uuuu.MM.dd]"));
-
+            .append(DateTimeFormatter.ofPattern("[uuuu-MM-dd]" + "[uuuu/MM/dd]" + "[uuuu MM dd]" + "[uuuu.MM.dd]", Locale.ROOT));
+    /**
+     * This field converts the possible date formats into a formatter.
+     */
     private static DateTimeFormatter dateTimeFormatter = formats.toFormatter();
 
+    /**
+     * Constructs a MusicBandValidator with the specified Scanner.
+     *
+     * @param userScanner a Scanner instance which takes input from the user.
+     */
     public MusicBandValidator(Scanner userScanner) {
         this.userScanner = userScanner;
         fileMode = false;
     }
 
-    public String askName() throws InvalidInputException {
+    /**
+     * This method is used to retrieve a music band's name from the user.
+     *
+     * @return music band's name.
+     */
+    public String askName() {
         String name;
         while (true) {
             try {
@@ -60,7 +87,12 @@ public class MusicBandValidator {
         return name;
     }
 
-    public float askX() throws InvalidInputException {
+    /**
+     * This method is used to retrieve a music band's coordinate (X) from the user.
+     *
+     * @return abscissa value.
+     */
+    private float askX() {
         String strX;
         float x;
         while (true) {
@@ -73,10 +105,10 @@ public class MusicBandValidator {
                 if (x < MIN_X)
                     throw new ValueRangeException("Your input is less than our allowed value.", new RuntimeException());
                 if (checkX(x))
-                    throw new IllegalArgumentException("Your input has not passed validation.", new RuntimeException());
+                    throw new InvalidInputException("Your input has not passed validation.", new RuntimeException());
                 break;
-            } catch (IllegalArgumentException e) {
-                Console.printError("Coordinate x is null.");
+            } catch (InvalidInputException e) {
+                Console.printError("Coordinate X is null.");
                 if (fileMode) throw new NullValueException("Coordinate X is null.", new RuntimeException());
             } catch (NoSuchElementException e) {
                 Console.printError("Coordinate X not recognized.");
@@ -93,7 +125,12 @@ public class MusicBandValidator {
         return x;
     }
 
-    public float askY() throws InvalidInputException {
+    /**
+     * This method is used to retrieve a music band's coordinate (Y) from the user.
+     *
+     * @return ordinate value.
+     */
+    private float askY() {
         String strY;
         float y;
         while (true) {
@@ -106,11 +143,11 @@ public class MusicBandValidator {
                 if (checkY(y))
                     throw new ValueRangeException("The value of coordinate Y must be within float range.", new RuntimeException());
                 break;
-            } catch (NoSuchElementException nsee) {
+            } catch (NoSuchElementException e) {
                 Console.printError("Coordinate Y not recognized");
                 if (fileMode)
                     throw new InvalidInputException("The value of coordinate Y must be within float range.", new RuntimeException());
-            } catch (NumberFormatException nfe) {
+            } catch (NumberFormatException e) {
                 Console.printError("Coordinate Y must be a number");
                 if (fileMode)
                     throw new InvalidInputException("The amount of coordinate Y must be within float range.", new RuntimeException());
@@ -122,11 +159,21 @@ public class MusicBandValidator {
         return y;
     }
 
-    public Coordinates askCoordinates() throws InvalidInputException {
+    /**
+     * This method is used to retrieve a music band's coordinates from the user.
+     *
+     * @return coordinates set.
+     */
+    public Coordinates askCoordinates() {
         return new Coordinates(askX(), askY());
     }
 
-    public Long askNumberOfParticipants() throws InvalidInputException {
+    /**
+     * This method is used to retrieve a music band's number of participants from the user.
+     *
+     * @return number of band members.
+     */
+    public Long askNumberOfParticipants() {
         String strNumberOfParticipants;
         Long numberOfParticipants;
         while (true) {
@@ -134,7 +181,7 @@ public class MusicBandValidator {
                 Console.println("Enter the number of participants:");
                 Console.print(Main.CS2);
                 strNumberOfParticipants = userScanner.nextLine().trim();
-                if (strNumberOfParticipants.isEmpty()) return 0L;
+                if (strNumberOfParticipants.isEmpty()) return null;
                 if (fileMode) Console.println(strNumberOfParticipants);
                 numberOfParticipants = Long.parseLong(strNumberOfParticipants);
                 if (checkNumberOfParticipants(numberOfParticipants)) {
@@ -142,16 +189,16 @@ public class MusicBandValidator {
                 }
                 break;
             } catch (NullValueException e) {
-                Console.printError("Number of participants is null");
-                if (fileMode) throw new NullValueException("Number of participants is null", new RuntimeException());
+                Console.printError("Your input has not passed validation.");
+                if (fileMode) throw new NullValueException("Your input has not passed validation.", new RuntimeException());
             } catch (NoSuchElementException e) {
                 Console.printError("Number of participants is not recognized");
                 if (fileMode)
                     throw new InvalidInputException("Number of participants is not recognized", new RuntimeException());
             } catch (NumberFormatException e) {
-                Console.printError("Number of participants must be a \'Long\' number");
+                Console.printError("Number of participants must be a 'Long' number");
                 if (fileMode)
-                    throw new InvalidInputException("Number of participants must be a \'Long\' number", new RuntimeException());
+                    throw new InvalidInputException("Number of participants must be a 'Long' number", new RuntimeException());
             } catch (NullPointerException | IllegalStateException e) {
                 Console.printError("Unknown error. Stopping the session...");
                 System.exit(0);
@@ -160,12 +207,16 @@ public class MusicBandValidator {
         return numberOfParticipants;
     }
 
+    /**
+     * This method is used to retrieve a music band's establishment date from the user.
+     * @return the music band's establishment date.
+     */
     public LocalDateTime askEstablishmentDate() {
         String strEstablishmentDate;
         LocalDateTime establishmentDate;
         while (true) {
             try {
-                Console.println("Enter establishment date with the following format: yyyy-MM-dd, yyyy.MM.dd, yyyy/MM/dd:");
+                Console.println("Enter establishment date with the following format: yyyy-MM-dd, yyyy.MM.dd, yyyy/MM/dd, yyyy MM dd:");
                 Console.print(Main.CS2);
                 strEstablishmentDate = userScanner.nextLine().trim();
                 establishmentDate = LocalDate.parse(strEstablishmentDate, dateTimeFormatter).atStartOfDay();
@@ -183,6 +234,10 @@ public class MusicBandValidator {
         return establishmentDate;
     }
 
+    /**
+     * This method is used to retrieve a music band's genre from the user.
+     * @return music band's genre as an enum value.
+     */
     public MusicGenre askMusicGenre() {
         String strMusicGenre;
         MusicGenre musicGenre;
@@ -192,9 +247,9 @@ public class MusicBandValidator {
                 Console.println("Enter music genre:");
                 Console.print(Main.CS2);
                 strMusicGenre = userScanner.nextLine().trim();
-                if (strMusicGenre.isEmpty()) return MusicGenre.NULL;
+                if (strMusicGenre.isEmpty()) return null;
                 if (fileMode) Console.println(strMusicGenre);
-                musicGenre = MusicGenre.valueOf(strMusicGenre.toUpperCase());
+                musicGenre = MusicGenre.valueOf(strMusicGenre.toUpperCase(Locale.ROOT));
                 if (checkMusicGenre(musicGenre))
                     throw new InvalidInputException("A music genre can be blank, but should be from available genres.", new RuntimeException());
                 break;
@@ -216,7 +271,11 @@ public class MusicBandValidator {
         return musicGenre;
     }
 
-    public String askAddress() {
+    /**
+     * This method is used to retrieve a music band's studio address from the user.
+     * @return music band's studio address.
+     */
+    private String askAddress() {
         String address;
         while (true) {
             try {
@@ -240,11 +299,21 @@ public class MusicBandValidator {
         return address;
     }
 
-    public Studio askStudio() throws InvalidInputException {
+    /**
+     * This method is used to retrieve a music band's studio from the user.
+     * @return music band's studio.
+     */
+    public Studio askStudio() {
         return new Studio(askAddress());
     }
 
-    public boolean askQuestion(String question) throws InvalidInputException {
+    /**
+     * This method is used to update a music band's data. Every question is optional.
+     *
+     * @param question whether the user wants to update a field.
+     * @return true if yes ("+"), <p> false if not ("-").
+     */
+    public boolean askQuestion(String question) {
         String finalQuestion = question + " (+/-)";
         String answer;
         while (true) {
@@ -254,7 +323,7 @@ public class MusicBandValidator {
                 answer = userScanner.nextLine().trim();
                 if (fileMode) Console.println(answer);
                 if (!answer.equals("+") && !answer.equals("-"))
-                    throw new InvalidInputException("User input must be either '+' or '-'", new IllegalArgumentException());
+                    throw new InvalidInputException("User input must be either '+' or '-'", new RuntimeException());
                 break;
             } catch (NoSuchElementException e) {
                 Console.printError("Answer not recognized.");
@@ -262,7 +331,7 @@ public class MusicBandValidator {
             } catch (InvalidInputException exception) {
                 Console.printError("Answer must be either '+' or '-'.");
                 if (fileMode)
-                    throw new InvalidInputException("Answer must be either '+' or '-'.", new IllegalArgumentException());
+                    throw new InvalidInputException("Answer must be either '+' or '-'.", new RuntimeException());
             } catch (java.lang.IllegalStateException exception) {
                 Console.printError("Unknown error. Stopping the session...");
                 System.exit(0);
@@ -271,11 +340,22 @@ public class MusicBandValidator {
         return answer.equals("+");
     }
 
-    protected static boolean checkID(Integer ID) {
-        return ID == null || ID <= 0;
+    /**
+     * This method is used to check whether an ID conforms to the required constraints.
+     *
+     * @param ID the ID to be checked.
+     * @return true if the ID doesn't meet the requirements, <p>false if it does.
+     */
+    static boolean checkID(Integer ID) {
+        return ID == null || ID <= 0 || checkUniqueID(ID);
     }
 
-    protected static boolean checkUniqueID(Integer ID) {
+    /**
+     * This method is used to check whether an ID is unique or not.
+     * @param ID the ID to be checked.
+     * @return true if the ID is not unique, <p>false if it is.
+     */
+    private static boolean checkUniqueID(Integer ID) {
         boolean unique;
         if (IDset.contains(ID)) {
             unique = true;
@@ -286,41 +366,82 @@ public class MusicBandValidator {
         return unique;
     }
 
-    static boolean checkName(String name) {
+    /**
+     * This method is used to check whether a name conforms to the required constraints.
+     * @param name the ID to be checked.
+     * @return true if the name doesn't meet the requirements, <p>false if it does.
+     */
+    static boolean checkName(CharSequence name) {
         return name == null || name.isEmpty();
     }
 
+    /**
+     * This method is used to check whether an X value conforms to the required constraints.
+     * @param x the abscissa value to be checked.
+     * @return true if the abscissa doesn't meet the requirements, <p>false if it does.
+     */
     static boolean checkX(float x) {
         return x < MIN_X || x > Float.MAX_VALUE;
     }
 
+    /**
+     * This method is used to check whether a Y value conforms to the required constraints.
+     * @param y the ordinate value to be checked.
+     * @return true if the ordinate doesn't meet the requirements, <p>false if it does.
+     */
     static boolean checkY(float y) {
-        return y < Float.MIN_VALUE || y > Float.MAX_VALUE;
+        return Math.abs(y) > Float.MAX_VALUE;
     }
 
+    /**
+     * This method is used to check whether a creation date conforms to the required constraints.
+     * @param creationDate the creation date to be checked.
+     * @return true if the creation date doesn't meet the requirements, <p>false if it does.
+     */
     static boolean checkDate(Date creationDate) {
         return creationDate == null || creationDate.toString().isEmpty();
     }
 
-    static boolean checkNumberOfParticipants(long numberOfParticipants) {
-        return numberOfParticipants < 0L || numberOfParticipants > Long.MAX_VALUE;
+    /**
+     * This method is used to check whether a number of participants value conforms to the required constraints.
+     *
+     * @param numberOfParticipants the creation date to be checked.
+     * @return true if the number of participants doesn't meet the requirements, <p>false if it does.
+     */
+    static boolean checkNumberOfParticipants(Long numberOfParticipants) {
+        if (numberOfParticipants == null) return false;
+        return numberOfParticipants <= 0L;
     }
 
+    /**
+     * This method is used to check whether an establishment date conforms to the required constraints.
+     * @param establishmentDate the establishment date to be checked.
+     * @return true if the establishment date doesn't meet the requirements, <p>false if it does.
+     */
     static boolean checkEstablishmentDate(LocalDateTime establishmentDate) {
+        if(establishmentDate == null) return false;
         return LocalDateTime.parse(establishmentDate.toString()).toString().isEmpty();
     }
 
+    /**
+     * This method is used to check whether a music band's genre conforms to the required constraints.
+     * @param genre the genre value to be checked.
+     * @return true if the genre doesn't meet the requirements, <p>false if it does.
+     */
     static boolean checkMusicGenre(MusicGenre genre) {
-        if (genre.name().isEmpty() || genre.name().equals("null")) {
-            return false;
-        }
+        if(genre == null) return false;
         for (MusicGenre musicGenre : MusicGenre.values()) {
             if (genre.name().equalsIgnoreCase(musicGenre.name())) return false;
         }
         return true;
     }
 
-    static boolean checkAddress(String address) {
+    /**
+     * This method is used to check whether a music band's studio address conforms to the required constraints.
+     * @param address the address to be checked.
+     * @return true if the address doesn't meet the requirements, <p>false if it does.
+     */
+    static boolean checkAddress(CharSequence address) {
         return address == null || address.isEmpty();
     }
 }

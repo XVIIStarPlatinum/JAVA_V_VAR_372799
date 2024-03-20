@@ -10,6 +10,9 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
+/**
+ * Driver class for the CLI application.
+ */
 public class Main {
     /**
      * String for CLI indentation.
@@ -23,17 +26,20 @@ public class Main {
      * CLI argument is passed onto this variable.
      */
     public static String cliArgument = null;
+    /**
+     * The margin of error used for comparing float values.
+     */
+    public static final float EPSILON = 0.00000001F;
 
+    /**
+     * The driver method used to launch the CLI application.
+     *
+     * @param args file name to be worked with.
+     * @throws IOException if there's an interruption with I/O operations involving the file.
+     */
     public static void main(String[] args) throws IOException {
         Console.println("W E L C O M E.");
         Scanner userScanner = new Scanner(System.in, StandardCharsets.UTF_8);
-        SignalHandler handler = sig -> {
-            Console.printError("Ctrl+C? How dare you!");
-            System.exit(0);
-        };
-        Signal.handle(new Signal("INT"), handler);
-        Signal.handle(new Signal("ABRT"), handler);
-        Signal.handle(new Signal("TERM"), handler);
         if (args.length == 0) {
             Console.printError("There must be an argument. Please try again.");
             System.exit(0);
@@ -49,6 +55,7 @@ public class Main {
                         outputStreamWriter.close();
                     }
                 } catch (FileNotFoundException e) {
+                    Console.printError("File not found.");
                     e.printStackTrace();
                 }
             }
@@ -76,6 +83,13 @@ public class Main {
         );
         Console console = new Console(commandManager, userScanner, musicBandValidator);
         console.InteractiveMode();
+        SignalHandler handler = sig -> {
+            Console.printError("Ctrl+C? How dare you!");
+            System.exit(0);
+        };
+        Signal.handle(new Signal("INT"), handler);
+        Signal.handle(new Signal("ABRT"), handler);
+        Signal.handle(new Signal("TERM"), handler);
         Console.println("             We'll meet again");
         Console.println("    Don't know where, don't know when");
         Console.println("But I know we'll meet again some sunny day.");

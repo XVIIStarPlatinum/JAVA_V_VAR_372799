@@ -6,36 +6,51 @@ import ru.itmo.se.exceptions.RecursionException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
+/**
+ * Utility class used for operations with the CLI.
+ */
 public class Console {
-
+    /**
+     * This field holds the instance of a CommandManager which is responsible for operations with commands.
+     */
     private final CommandManager commandManager;
-
+    /**
+     * This field holds the scanner via which the application will receive inputs.
+     */
     private final Scanner userScanner;
-
+    /**
+     * This field holds the instance of a MusicBandValidator which is responsible for all validations of data.
+     */
     private final MusicBandValidator musicBandValidator;
-
+    /**
+     * This field stores the commands from a script.
+     */
     private final List<String> scriptStack = new ArrayList<>();
+    /**
+     * This field stores all possible aliases for the command execute_script. It is used to catch out any unchecked recursions.
+     */
+    private Collection<String> executeStringAliases = new ArrayList<>(Arrays.asList("execute_script", "exs", "учусгеу_ыскшзе", "учы"));
 
-    List<String> executeStringAliases = new ArrayList<>();
-
-    {
-        executeStringAliases.add("execute_script");
-        executeStringAliases.add("exs");
-        executeStringAliases.add("учусгеу_ыскшзе");
-        executeStringAliases.add("учы");
-    }
-
+    /**
+     * Constructs a Console with the specified CommandManager, Scanner and MusicBandValidator.
+     *
+     * @param commandManager     a CommandManager instance.
+     * @param scanner            a Scanner instance which takes input from the user.
+     * @param musicBandValidator a MusicBandValidator which validates all data.
+     */
     public Console(CommandManager commandManager, Scanner scanner, MusicBandValidator musicBandValidator) {
         this.commandManager = commandManager;
         this.userScanner = scanner;
         this.musicBandValidator = musicBandValidator;
     }
 
+    /**
+     * This method is used to switch the console input mode to user.
+     */
     public void InteractiveMode() {
         String[] userCommands;
         int commandStatus;
@@ -52,12 +67,18 @@ public class Console {
         }
     }
 
-    public int scriptMode(String arg) {
+    /**
+     * This method is used to switch the console input to script mode (invoked with execute_script).
+     *
+     * @param arg a script file.
+     * @return 1 if there's an execution error with the script, <p>2 if the command exit occurs.
+     */
+    private int scriptMode(String arg) {
         String[] userCommand;
         int commandStatus;
         scriptStack.add(arg);
-        try (Scanner scrSc = new Scanner(new File(arg))) {
-            if (!scrSc.hasNext()) throw new NoSuchElementException();
+        try (Scanner scrSc = new Scanner(new File(arg), StandardCharsets.UTF_8)) {
+            if (!scrSc.hasNext()) throw new NoSuchElementException("There are no remaining commands.", new RuntimeException());
             Scanner tmp = musicBandValidator.getUserScanner();
             musicBandValidator.setUserScanner(scrSc);
             musicBandValidator.setFileMode(true);
@@ -80,8 +101,7 @@ public class Console {
             } while (commandStatus == 0 && scrSc.hasNextLine());
             musicBandValidator.setUserScanner(tmp);
             musicBandValidator.setFileMode(false);
-            if (commandStatus == 1 && !(executeStringAliases.contains(userCommand[0])
-                    && !userCommand[1].isEmpty())) {
+            if (commandStatus == 1 && !(executeStringAliases.contains(userCommand[0]) && !userCommand[1].isEmpty())) {
                 Console.printError("Execution error: Please debug your script.");
                 return commandStatus;
             } else if (commandStatus == 2 && userCommand[0].equals("exit") && userCommand[1].isEmpty()) {
@@ -93,14 +113,21 @@ public class Console {
             Console.printError("Script file is empty.");
         } catch (RecursionException e) {
             Console.printError("Critical error: Recursion detected in script file.");
+        } catch (IOException e) {
+            Console.printError("Critical error: the file cannot be opened.");
         } finally {
             scriptStack.remove(scriptStack.size() - 1);
         }
         return 1;
     }
 
+    /**
+     * This method is responsible for command execution.
+     * @param userCommand the command to be executed.
+     * @return 0 if the command was executed, <p>1 if the command was not executed and <p>2 if the command was exit.
+     */
     private int executeCommand(String[] userCommand) {
-        String arg = userCommand[0].toLowerCase();
+        String arg = userCommand[0].toLowerCase(Locale.ROOT);
         switch (arg) {
             case "":
                 break;
@@ -108,12 +135,12 @@ public class Console {
                 if (!commandManager.clear(userCommand[1])) return 1;
                 break;
             case "execute_script", "учусгеу_ыскшзе", "exs", "учы":
-                if (!commandManager.executeScript(userCommand[1])) return 1;
-                else return scriptMode(userCommand[1]);
+                if (commandManager.executeScript(userCommand[1])) return scriptMode(userCommand[1]);
+                else return 1;
             case "exit", "учше":
-                if (!commandManager.exit(userCommand[1])) return 1;
-                else return 2;
-            case "filter_less_than_number", "ашдеук_дуыы_ерфт_тгьиук", "fltn", "адет":
+                if (commandManager.exit(userCommand[1])) return 2;
+                else return 1;
+            case "filter_less_than_number_of_participants", "ашдеук_дуыы_ерфт_тгьиук_ща_зфкешсшзфтеы", "fltnop", "адетщз":
                 if (!commandManager.filterLessThanNumberOfParticipants(userCommand[1])) return 1;
                 break;
             case "help", "рудз":
@@ -153,29 +180,52 @@ public class Console {
                 if (!commandManager.updateID(userCommand[1])) return 1;
                 break;
             default:
-                commandManager.noSuchCommand(userCommand[0]);
+                CommandManager.noSuchCommand(userCommand[0]);
                 return 1;
         }
         return 0;
     }
 
-    public static void print(Object toOut) {
+    /**
+     * This method is a custom implementation of the print() method. The output is colored purple with the help of a corresponding ANSI code.
+     *
+     * @param toOut the object to be printed.
+     */
+    static void print(Object toOut) {
         System.out.print("\033[1;35m" + toOut + "\u001B[0m");
     }
 
+    /**
+     * This method is a custom implementation of the println() method. The output is colored green with the help of a corresponding ANSI code.
+     * @param toOut the object to be printed.
+     */
     public static void println(Object toOut) {
         System.out.println("\u001B[32m" + toOut + "\u001B[0m");
     }
 
+    /**
+     * This method is a custom implementation of the err.print() method. The output is colored black with red background with the help of corresponding ANSI codes.
+     * @param toOut the error that was raised.
+     */
     public static void printError(Object toOut) {
         System.out.println("\u001B[41m" + "\u001B[30m" + toOut + "\u001B[0m");
     }
 
-    public static void printTable(Object e1, Object e2) {
+    /**
+     * This method is used to output all the commands in a table format. The row border is colored purple, the object and the column border is colored cyan with the help of corresponding ANSI codes.
+     *
+     * @param e1 first column object.
+     * @param e2 second column object.
+     */
+    static void printTable(Object e1, Object e2) {
         System.out.printf("\u001B[36m" + "| %-64s | %-88s | %n", e1, e2);
-        System.out.printf("\u001B[35m" + "=-".repeat(79) + "=%n");
+        System.out.print("\u001B[35m" + "=-".repeat(79) + "=%n");
     }
 
+    /**
+     * This method is a custom implementation of the toString() method in Console.
+     * @return information about this class.
+     */
     @Override
     public String toString() {
         return "Console: CLI class";

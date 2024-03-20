@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "ru.itmo.se"
-version = "2.1"
+version = "2.2"
 description = "Lab5"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
