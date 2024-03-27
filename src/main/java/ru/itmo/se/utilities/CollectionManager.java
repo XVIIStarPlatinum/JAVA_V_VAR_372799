@@ -218,7 +218,7 @@ public class CollectionManager {
 
     /**
      * This method is used to automatically generate a value of an ID.
-     * @return 1 if the collection was empty, <p>n + 1 if the collection has n amount of elements.
+     * @return 1 if the collection is empty, <p>n + 1 if the collection has n amount of elements.
      */
     public Integer generateNextID() {
         return (musicBandCollection.isEmpty()) ? 1 : musicBandCollection.stream().max(Comparator.comparing(MusicBand::getId)).get().getId() + 1;
