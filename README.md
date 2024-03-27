@@ -28,35 +28,33 @@ _Внимание! У разных вариантов разный текст з
 
 **В интерактивном режиме программа должна поддерживать выполнение следующих команд:**
 
-- ${\color{red}help}$ : вывести справку по доступным командам
-- ${\color{red}info}$ : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество
+- ${\color{red}help}$: вывести справку по доступным командам
+- ${\color{red}info}$: вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество
   элементов и т.д.)
 - ${\color{red}show}$ : вывести в стандартный поток вывода все элементы коллекции в строковом представлении
 - ${\color{red}add \space {element}}$: добавить новый элемент в коллекцию
 - ${\color{red}update \space id \space \{element\}}$ : обновить значение элемента коллекции, id которого равен заданному
-- ${\color{red}remove {\_} by {\_} id \space id}$ : удалить элемент из коллекции по его id
+- ${\color{red}remove \textunderscore by \textunderscore id \space id}$ : удалить элемент из коллекции по его id
 - ${\color{red}clear}$ : очистить коллекцию
 - ${\color{red}save}$ : сохранить коллекцию в файл
-- ${\color{red}execute {\_} script file {\_} name}$ : считать и исполнить скрипт из указанного файла. В скрипте
-  содержатся
-  команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.
+- ${\color{red}execute \textunderscore script \space file \textunderscore name}$ : считать и исполнить скрипт из
+  указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном
+  режиме.
 - ${\color{red}exit}$ : завершить программу (без сохранения в файл)
-- ${\color{red}remove {\_} at \space index}$ : удалить элемент, находящийся в заданной позиции коллекции (index)
+- ${\color{red}remove \textunderscore at \space index}$ : удалить элемент, находящийся в заданной позиции коллекции (
+  index)
 - ${\color{red}shuffle}$ : перемешать элементы коллекции в случайном порядке
 - ${\color{red}history}$ : вывести последние 10 команд (без их аргументов)
-- ${\color{red}group {\_} counting {\_} by {\_} establishment {\_} date}$ : сгруппировать элементы коллекции по значению
+- ${\color{red}group \textunderscore counting \textunderscore by \textunderscore establishment \textunderscore date}$ :
+  сгруппировать элементы коллекции по значению
   поля
   establishmentDate, вывести
   количество элементов в каждой группе
-- ${\color{red}filter {\_} less {\_} than {\_} number {\_} of {\_} participants \space numberOfParticipants}$ : вывести
-  элементы,
-  значение
-  поля numberOfParticipants
+- ${\color{red}filter \textunderscore less \textunderscore than \textunderscore number \textunderscore of
+  \textunderscore participants \space numberOfParticipants}$ : вывести элементы, значение поля numberOfParticipants
   которых меньше заданного
-- ${\color{red}print {\_} field {\_} descending {\_} establishment {\_} date}$ : вывести значения поля establishmentDate
-  всех
-  элементов
-  в порядке убывания
+- ${\color{red}print \textunderscore field \textunderscore descending \textunderscore establishment \textunderscore
+  date}$ : вывести значения поля establishmentDate всех элементов в порядке убывания
 
 **Формат ввода команд:**
 
