@@ -33,7 +33,8 @@ _Внимание! У разных вариантов разный текст з
   элементов и т.д.)
 - ${\color{red}show}$ : вывести в стандартный поток вывода все элементы коллекции в строковом представлении
 - ${\color{red}add \space \lbrace element \rbrace}$: добавить новый элемент в коллекцию
-- ${\color{red}update id \lbrace element \rbrace}$ : обновить значение элемента коллекции, id которого равен заданному
+- ${\color{red}update id \space \lbrace element \rbrace}$ : обновить значение элемента коллекции, id которого равен
+  заданному
 - ${\color{red}remove \textunderscore by \textunderscore id \space id}$ : удалить элемент из коллекции по его id
 - ${\color{red}clear}$ : очистить коллекцию
 - ${\color{red}save}$ : сохранить коллекцию в файл
