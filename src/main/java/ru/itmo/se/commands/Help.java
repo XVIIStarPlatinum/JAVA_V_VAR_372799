@@ -13,10 +13,16 @@ import ru.itmo.se.utilities.Console;
 @ToString
 public class Help extends CommandImpl {
     /**
-     * Constructs a Help.
+     * This field holds an instance of a CollectionManager which is responsible for operations with commands.
      */
-    public Help() {
-        super("Help", "Outputs a table of available commands");
+    private CommandManager commandManager;
+    /**
+     * Constructs a Help.
+     * @param commandManager the specified CommandManager.
+     */
+    public Help(CommandManager commandManager) {
+        super("help", "Outputs a table of available commands");
+        this.commandManager = commandManager;
     }
 
     /**
@@ -32,7 +38,8 @@ public class Help extends CommandImpl {
                 throw new InvalidArgumentCountException("You don't need an argument here.", new RuntimeException());
             }
             Console.printTable("                          COMMAND NAME", "                                  COMMAND SPECIFICATION");
-            for (CommandImpl command : CommandManager.commandMap.values()) {
+            for (CommandImpl command : commandManager.commandMap.values()) {
+
                 Console.printTable(command.getName(), command.getSpec());
             }
             return true;

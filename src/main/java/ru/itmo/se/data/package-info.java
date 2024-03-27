@@ -3,7 +3,7 @@
  * This package contains data of objects which make up the elements of the collection.
  * </p>
  *
- * @version 2.1
+ * @version 2.2
  * @author Аригуун Болорболд | XVIIstarPt__
  * @since 2.1
  */

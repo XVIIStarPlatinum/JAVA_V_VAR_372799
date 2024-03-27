@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Utility class used for operations with the CLI.
@@ -63,6 +64,7 @@ public class Console {
             } while (commandStatus != 2);
         } catch (NoSuchElementException e) {
             Console.printError("User input not detected: Possible EOF (Ctrl+D).");
+            System.exit(2);
         }
     }
     /**
@@ -133,6 +135,9 @@ public class Console {
     private int executeCommand(String[] userCommand) {
         String command = userCommand[0].toLowerCase(Locale.ROOT);
         String arg = userCommand[1].toLowerCase(Locale.ROOT);
+        if (Pattern.matches(".*\\p{InCyrillic}.*", command)) {
+            command = commandManager.typoTranscript(command);
+        }
         if (commandManager.commandMap.containsKey(command)) {
             if (command.equals("exit")) {
                 return (commandManager.commandMap.get("exit").apply(arg)) ? 2 : 1;
@@ -143,8 +148,8 @@ public class Console {
             }
         } else {
             CommandManager.noSuchCommand(userCommand[0]);
-            return 1;
         }
+        return 1;
     }
 
     /**
@@ -179,7 +184,7 @@ public class Console {
      * @param e2 second column object.
      */
     public static void printTable(Object e1, Object e2) {
-        System.out.printf("\u001B[36m" + "| %-64s | %-88s | %n", e1, e2);
+        System.out.printf("\u001B[36m" + "| %-64s | %-76s | %n", e1, e2);
         System.out.print("\u001B[35m" + "=-".repeat(79) + "=\n");
     }
 

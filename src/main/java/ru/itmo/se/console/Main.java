@@ -57,7 +57,7 @@ public class Main {
                 Console.printError("You don't have access to this file. Try again, maybe after doing chmod 777 or something.");
                 System.exit(1);
             }
-            if (!file.exists()) {
+            if (!file.isFile()) {
                 try {
                     if (file.createNewFile()) {
                         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
@@ -76,45 +76,21 @@ public class Main {
         CollectionManager collectionManager = new CollectionManager(fileManager);
         CommandManager commandManager = new CommandManager() {{
             addCommand("add", new Add(collectionManager, musicBandValidator));
-            addCommand("фвв", new Add(collectionManager, musicBandValidator));
             addCommand("clear", new Clear(collectionManager));
-            addCommand("сдуфк", new Clear(collectionManager));
             addCommand("execute_script", new ExecuteScript());
-            addCommand("учусгеу_ыскшзе", new ExecuteScript());
-            addCommand("exs", new ExecuteScript());
-            addCommand("учы", new ExecuteScript());
             addCommand("exit", new Exit());
-            addCommand("учше", new Exit());
             addCommand("filter_less_than_number_of_participants", new FilterLessThanNumberOfParticipants(collectionManager));
-            addCommand("ашдеук_дуыы_ерфт_тгьиук_ща_зфкешсшзфтеы", new FilterLessThanNumberOfParticipants(collectionManager));
-            addCommand("fltnop", new FilterLessThanNumberOfParticipants(collectionManager));
-            addCommand("адетщз", new FilterLessThanNumberOfParticipants(collectionManager));
             addCommand("group_counting_by_establishment_date", new GroupCountingByEstablishmentDate(collectionManager));
-            addCommand("пкщгз_сщгтештп_ин_уыефидшырьуте_вфеу", new GroupCountingByEstablishmentDate(collectionManager));
-            addCommand("gcbed", new GroupCountingByEstablishmentDate(collectionManager));
-            addCommand("псиув", new GroupCountingByEstablishmentDate(collectionManager));
-            addCommand("help", new Help());
-            addCommand("рудз", new Help());
+            addCommand("help", new Help(this));
             addCommand("history", new History(this));
-            addCommand("ршыещкн", new History(this));
             addCommand("info", new Info(collectionManager));
-            addCommand("штащ", new Info(collectionManager));
             addCommand("print_field_descending_establishment_date", new PrintFieldDescendingEstablishmentDate(collectionManager));
-            addCommand("зкште_ашудв_вуысутвштп_уыефидшырьуте_вфеу", new PrintFieldDescendingEstablishmentDate(collectionManager));
-            addCommand("pfded", new PrintFieldDescendingEstablishmentDate(collectionManager));
-            addCommand("завув", new PrintFieldDescendingEstablishmentDate(collectionManager));
             addCommand("remove_at", new RemoveAt(collectionManager));
-            addCommand("куьщму_фе", new RemoveAt(collectionManager));
             addCommand("remove_by_id", new RemoveByID(collectionManager));
-            addCommand("куьщму_ин_шв", new RemoveByID(collectionManager));
             addCommand("save", new Save(collectionManager));
-            addCommand("ыфму", new Save(collectionManager));
             addCommand("show", new Show(collectionManager));
-            addCommand("ырщц", new Show(collectionManager));
             addCommand("shuffle", new Shuffle(collectionManager));
-            addCommand("ыргааду", new Shuffle(collectionManager));
             addCommand("update", new UpdateID(collectionManager, musicBandValidator));
-            addCommand("гзвфеу", new UpdateID(collectionManager, musicBandValidator));
         }};
         Console console = new Console(commandManager, userScanner, musicBandValidator);
         console.InteractiveMode();

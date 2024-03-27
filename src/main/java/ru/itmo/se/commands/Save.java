@@ -23,7 +23,7 @@ public class Save extends CommandImpl {
      * @param collectionManager the specified CollectionManager.
      */
     public Save(CollectionManager collectionManager) {
-        super("Save", "Saves the changes made during a session into a given file");
+        super("save", "Saves the changes made during a session into a given file");
         this.collectionManager = collectionManager;
     }
 

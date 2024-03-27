@@ -22,7 +22,7 @@ public class History extends CommandImpl {
      * @param commandManager the specified CommandManager.
      */
     public History(CommandManager commandManager) {
-        super("History", "Outputs the 10 last used commands");
+        super("history", "Outputs the 10 last used commands");
         this.commandManager = commandManager;
     }
     /**
@@ -36,8 +36,8 @@ public class History extends CommandImpl {
             if (!arg.isEmpty()) {
                 throw new InvalidArgumentCountException("You don't need an argument here.", new RuntimeException());
             }
-            if (commandManager.commandHistory.length == 0) {
-                throw new EmptyHistoryException("You just started this session, of course the History is empty.", new RuntimeException());
+            if (commandManager.commandHistory[0].isEmpty()) {
+                throw new EmptyHistoryException("You just started this session, of course the history is empty.", new RuntimeException());
             }
             Console.println("Recently used commands:");
             for (String s : commandManager.commandHistory) {

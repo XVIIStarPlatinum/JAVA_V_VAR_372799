@@ -24,7 +24,7 @@ public class Clear extends CommandImpl {
      * @param collectionManager the specified CollectionManager.
      */
     public Clear(CollectionManager collectionManager) {
-        super("Clear", "Clears the collection");
+        super("clear", "Clears the collection");
         this.collectionManager = collectionManager;
     }
 

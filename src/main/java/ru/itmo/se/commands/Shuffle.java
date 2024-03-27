@@ -24,7 +24,7 @@ public class Shuffle extends CommandImpl {
      * @param collectionManager the specified CollectionManager.
      */
     public Shuffle(CollectionManager collectionManager) {
-        super("Shuffle", "Randomly shuffles the collection");
+        super("shuffle", "Randomly shuffles the collection");
         this.collectionManager = collectionManager;
     }
 

@@ -1,9 +1,8 @@
 package ru.itmo.se.commands;
 
+import lombok.ToString;
 import ru.itmo.se.exceptions.InvalidArgumentCountException;
 import ru.itmo.se.utilities.Console;
-
-import lombok.ToString;
 
 /**
  * This class implements the command Exit. It gracefully terminates the CLI application.
@@ -16,7 +15,7 @@ public class Exit extends CommandImpl {
      * Constructs an Exit.
      */
     public Exit() {
-        super("Exit", "Gracefully terminates the console application");
+        super("exit", "Gracefully terminates the console application");
     }
 
     /**

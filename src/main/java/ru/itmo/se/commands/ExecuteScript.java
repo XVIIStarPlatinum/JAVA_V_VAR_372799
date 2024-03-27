@@ -1,9 +1,8 @@
 package ru.itmo.se.commands;
 
+import lombok.ToString;
 import ru.itmo.se.exceptions.InvalidArgumentCountException;
 import ru.itmo.se.utilities.Console;
-
-import lombok.ToString;
 
 /**
  * This class implements the command execute_script. It executes a sequence of commands in a file.
@@ -18,7 +17,6 @@ public class ExecuteScript extends CommandImpl {
     public ExecuteScript() {
         super("execute_script <file_name>", "Executes a script from a given file");
     }
-
     /**
      * This method is an implementation of the abstract apply() method for the execute_script command.
      *

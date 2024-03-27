@@ -16,14 +16,13 @@ public class Show extends CommandImpl {
      * This field holds an instance of a CollectionManager which is responsible for operations with the collection.
      */
     private final CollectionManager collectionManager;
-
     /**
      * Constructs a Show with the specified CollectionManager.
      *
      * @param collectionManager the specified CollectionManager.
      */
     public Show(CollectionManager collectionManager) {
-        super("Show", "Outputs all elements of the collection");
+        super("show", "Outputs all elements of the collection");
         this.collectionManager = collectionManager;
     }
 

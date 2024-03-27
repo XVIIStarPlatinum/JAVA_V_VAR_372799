@@ -25,7 +25,7 @@ public class Info extends CommandImpl {
      * @param collectionManager the specified collectionManager.
      */
     public Info(CollectionManager collectionManager) {
-        super("Info", "Gives information about the collection");
+        super("info", "Gives information about the collection");
         this.collectionManager = collectionManager;
     }
 
