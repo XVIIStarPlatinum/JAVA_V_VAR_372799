@@ -146,6 +146,8 @@ public class Console {
             } else {
                 return (commandManager.commandMap.get(command).apply(arg)) ? 0 : 1;
             }
+        } else if (command.isEmpty()) {
+            return 1;
         } else {
             CommandManager.noSuchCommand(userCommand[0]);
         }
@@ -184,8 +186,8 @@ public class Console {
      * @param e2 second column object.
      */
     public static void printTable(Object e1, Object e2) {
-        System.out.printf("\u001B[36m" + "| %-64s | %-76s | %n", e1, e2);
-        System.out.print("\u001B[35m" + "=-".repeat(79) + "=\n");
+        System.out.printf("\u001B[36m" + "| %-64s | %-75s | %n", e1, e2);
+        System.out.print("\u001B[35m" + "=-".repeat(73) + "\n");
     }
 
     /**

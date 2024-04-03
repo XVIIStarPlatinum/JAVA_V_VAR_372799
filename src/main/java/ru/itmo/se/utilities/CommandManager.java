@@ -107,7 +107,7 @@ public class CommandManager {
      * @param arg unavailable command.
      */
     static void noSuchCommand(String arg) {
-        Console.println("Command '" + arg + "' not found. Use command 'Help' for advice.");
+        Console.println("Command '" + arg + "' not found. Use command 'help' for advice.");
     }
     /**
      * A custom implementation of the toString() method in CommandManager.
