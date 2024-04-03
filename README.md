@@ -5,6 +5,10 @@ ___
 
 ## Лабораторная работа `#5`
 
+<p align="center">
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExemY5ZW96enc3c3FhMHZhcXl3YzF4ZWRkMGxqMnQ1NGU3MXo4cmJwdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nBYUsPFw8TXTW/giphy.gif"  alt="Collection of stands"/>
+</p>
+
 ### `Вариант 372799`
 
 ## Результат: ${\color{green}95\\%}$
