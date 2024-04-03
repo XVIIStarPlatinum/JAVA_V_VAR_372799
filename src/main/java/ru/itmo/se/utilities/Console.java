@@ -134,7 +134,7 @@ public class Console {
      */
     private int executeCommand(String[] userCommand) {
         String command = userCommand[0].toLowerCase(Locale.ROOT);
-        String arg = userCommand[1].toLowerCase(Locale.ROOT);
+        String arg = userCommand[1];
         if (Pattern.matches(".*\\p{InCyrillic}.*", command)) {
             command = commandManager.typoTranscript(command);
         }

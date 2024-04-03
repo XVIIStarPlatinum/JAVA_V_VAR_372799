@@ -45,7 +45,8 @@ public class Main {
             System.exit(0);
         } else {
             SignalHandler handler = sig -> {
-                Console.printError("\nCtrl+C? How dare you!");
+                System.out.println();
+                Console.printError("Ctrl+C? How dare you!\u001B[0m");
                 System.exit(0);
             };
             Signal.handle(new Signal("INT"), handler);
