@@ -35,7 +35,7 @@ public class Console {
     /**
      * This field stores all possible aliases for the command execute_script. It is used to catch out any unchecked recursions.
      */
-    private Collection<String> executeStringAliases = new ArrayList<>(Arrays.asList("execute_script", "exs", "учусгеу_ыскшзе", "учы"));
+    private Collection<String> executeScriptAliases = new ArrayList<>(Arrays.asList("execute_script", "exs", "учусгеу_ыскшзе", "учы"));
     /**
      * Constructs a Console with the specified CommandManager, Scanner and MusicBandValidator.
      *
@@ -95,7 +95,7 @@ public class Console {
                     userCommand[1] = userCommand[1].trim();
                 } while (scrSc.hasNextLine() && userCommand[0].isEmpty());
                 Console.println(Main.CS1 + String.join(" ", userCommand));
-                if (executeStringAliases.contains(userCommand[0])) {
+                if (executeScriptAliases.contains(userCommand[0])) {
                     for (String script : scriptStack) {
                         if (userCommand[1].equals(script)) {
                             throw new RecursionException("Unchecked recursion detected.", new RuntimeException());
@@ -106,7 +106,7 @@ public class Console {
             } while (commandStatus == 0 && scrSc.hasNextLine());
             musicBandValidator.setUserScanner(tmp);
             musicBandValidator.setFileMode(false);
-            if (commandStatus == 1 && !(executeStringAliases.contains(userCommand[0]) && !userCommand[1].isEmpty())) {
+            if (commandStatus == 1 && !(executeScriptAliases.contains(userCommand[0]) && !userCommand[1].isEmpty())) {
                 Console.printError("Execution error: Please debug your script.");
                 return commandStatus;
             } else if (commandStatus == 2 && userCommand[0].equals("exit") && userCommand[1].isEmpty()) {
@@ -139,7 +139,7 @@ public class Console {
         if (commandManager.commandMap.containsKey(command)) {
             if (command.equals("exit")) {
                 return (commandManager.commandMap.get("exit").apply(arg)) ? 2 : 1;
-            } else if (executeStringAliases.contains(command)) {
+            } else if (executeScriptAliases.contains(command)) {
                 return (commandManager.commandMap.get(command).apply(arg)) ? scriptMode(arg) : 1;
             } else {
                 return (commandManager.commandMap.get(command).apply(arg)) ? 0 : 1;

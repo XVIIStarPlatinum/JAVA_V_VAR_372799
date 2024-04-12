@@ -39,7 +39,7 @@ public class UpdateID extends CommandImpl {
      * @param musicBandValidator the specified MusicBandValidator.
      */
     public UpdateID(CollectionManager collectionManager, MusicBandValidator musicBandValidator) {
-        super("update <ID> {element}", "Updates an element of the collection with the givan ID");
+        super("update <ID> {element}", "Updates an element of the collection with the given ID");
         this.collectionManager = collectionManager;
         this.musicBandValidator = musicBandValidator;
     }
