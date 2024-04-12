@@ -38,7 +38,10 @@ public class CommandManager {
     private Map<String, String> typoCommandMap = new LinkedHashMap<>();
     /**
      * This structure maps all shorthand input (for long commands only, typing them is a pain in the ass) to their actual commands.
+     * -- GETTER --
+     * Getter method for the shorthand map.
      */
+    @Getter
     private Map<String, String> shortHandCommandMap = new LinkedHashMap<>();
 
     /**
@@ -100,7 +103,7 @@ public class CommandManager {
      * @return autocorrected command.
      */
     String typoTranscript(String typo) {
-        return (Pattern.matches(".*\\p{InCyrillic}.*", typo)) ? typoCommandMap.get(typo) : shortHandCommandMap.getOrDefault(typo, typo);
+        return (Pattern.matches(".*\\p{InCyrillic}.*", typo)) ? typoCommandMap.get(typo) : getShortHandCommandMap().getOrDefault(typo, typo);
     }
     /**
      * This method is used to signify to the user that the command is unavailable.
@@ -109,6 +112,7 @@ public class CommandManager {
     static void noSuchCommand(String arg) {
         Console.println("Command '" + arg + "' not found. Use command 'help' for advice.");
     }
+
     /**
      * A custom implementation of the toString() method in CommandManager.
      * @return information about this class.

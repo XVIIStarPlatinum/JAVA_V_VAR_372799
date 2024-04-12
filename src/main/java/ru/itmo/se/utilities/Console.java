@@ -90,12 +90,10 @@ public class Console {
             musicBandValidator.setUserScanner(scrSc);
             musicBandValidator.setFileMode(true);
             do {
-                userCommand = (scrSc.nextLine().trim() + " ").split(" ", 2);
-                userCommand[1] = userCommand[1].trim();
-                while (scrSc.hasNextLine() && userCommand[0].isEmpty()) {
+                do {
                     userCommand = (scrSc.nextLine().trim() + " ").split(" ", 2);
                     userCommand[1] = userCommand[1].trim();
-                }
+                } while (scrSc.hasNextLine() && userCommand[0].isEmpty());
                 Console.println(Main.CS1 + String.join(" ", userCommand));
                 if (executeStringAliases.contains(userCommand[0])) {
                     for (String script : scriptStack) {
@@ -135,7 +133,7 @@ public class Console {
     private int executeCommand(String[] userCommand) {
         String command = userCommand[0].toLowerCase(Locale.ROOT);
         String arg = userCommand[1];
-        if (Pattern.matches(".*\\p{InCyrillic}.*", command)) {
+        if (Pattern.matches(".*\\p{InCyrillic}.*", command) || commandManager.getShortHandCommandMap().containsKey(command)) {
             command = commandManager.typoTranscript(command);
         }
         if (commandManager.commandMap.containsKey(command)) {
